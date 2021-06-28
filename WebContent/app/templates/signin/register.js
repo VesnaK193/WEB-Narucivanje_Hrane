@@ -5,7 +5,8 @@ Vue.component("register", {
 				password: null,
 				firstname: null,
 				lastname: null,
-				gender: null
+				gender: null,
+				birthday: null,
 		    }
 	},
 	template: ` 
@@ -37,6 +38,10 @@ Vue.component("register", {
 	      <input type="text" class="form-control" name="gender" v-model="gender" placeholder="Gender">
 	      <label for="floatingInput">Gender</label>
 	    </div>
+	    <div class="form-floating">
+	      <input type="date" class="form-control" name="birthday" v-model="birthday" placeholder="Birthday">
+	      <label for="floatingInput">Birthday</label>
+	    </div>
 	    <button class="w-100 btn btn-lg btn-primary mt-3" type="button" v-on:click="checkForm()">Sign in</button>
 	  </div>
 	</main>	
@@ -46,15 +51,39 @@ Vue.component("register", {
 </div>
 
 `
-	, 
+	, mounted() {
+		axios
+		.get("rest/user/allUsers")
+		.then(response => {
+			this.users = fixDate(response.data);
+			console.log(response.data);
+		});
+	},
 	methods: {
 		checkForm: function () {
-			var s = {username:this.username, password:this.password, firstname:this.firstname, lastname:this.lastname, gender:this.gender};
+			var birthdayInMS = new Date(this.birthday).getTime();
+			var s = {username:this.username, password:this.password, firstname:this.firstname, lastname:this.lastname, gender:this.gender, birthday:birthdayInMS};
 			axios
-			.post("rest/register/Add", s)
+			.post("rest/user/register", s)
 			.then(response => (console.log(response.data)));
 		}
 
-	}
+	},
+	
+	filters: {
+		dataFormat: function (value, format) {
+			var parsed = moment(value);
+			return parsed.format(format);
+		}
+	},
 	});
+
+function fixDate(users) {
+	for (var u of users) {
+		u.birthday = new Date(parseInt(u.birthday));
+		console.log(u.birthday);
+	}
+	
+	return users;
+}
 
