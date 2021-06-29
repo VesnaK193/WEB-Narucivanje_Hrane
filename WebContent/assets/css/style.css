@@ -53,3 +53,15 @@ footer p {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.elemHide {
+	display:none;
+}
+
+.errorMessage {
+    color: rgb(255 0 110);
+    display: block;
+    text-align: right;
+    margin: .7rem 0;
+}
+    

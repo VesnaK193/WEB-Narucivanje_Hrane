@@ -34,7 +34,7 @@ public class UserDAO {
 	 */
 	public UserDAO(String contextPath) {
 		this.contextPath = contextPath;
-//		loadUsers();
+		loadUsers();
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class UserDAO {
 	 * @param password
 	 * @return
 	 */
-	public User find(String username, String password) {
+	public User findByUsernameAndPassword(String username, String password) {
 		if (!users.containsKey(username)) {
 			return null;
 		}
@@ -51,6 +51,14 @@ public class UserDAO {
 		if (!user.getPassword().equals(password)) {
 			return null;
 		}
+		return user;
+	}
+	
+	public User findByUsername(String username) {
+		if (!users.containsKey(username)) {
+			return null;
+		}
+		User user = users.get(username);
 		return user;
 	}
 	

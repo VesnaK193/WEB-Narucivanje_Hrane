@@ -43,24 +43,26 @@ public class UserService {
 		}
 	}
 	
-	@POST
-	@Path("/register")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public String register(User u) {
-		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		userDao.addUser(u);
-		
-		return u.getBirthday().toString();
-	}
-	
 	@GET
 	@Path("/allUsers")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<User> allUsers() {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		userDao.loadUsers();
 		return userDao.findAll();
+	}
+	
+	@POST
+	@Path("/register")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public User register(User u) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		User userWithNewUsername = userDao.findByUsername(u.getUsername());
+		if(userWithNewUsername==null) {
+			userDao.addUser(u);
+			return u;
+		}
+		return null;
 	}
 	
 	@POST
@@ -70,7 +72,7 @@ public class UserService {
 	public User login(User u) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		
-		User u1 = userDao.find(u.getUsername(), u.getPassword());
+		User u1 = userDao.findByUsernameAndPassword(u.getUsername(), u.getPassword());
 		
 		if(u1 == null) {
 			return null;
