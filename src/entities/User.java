@@ -12,6 +12,7 @@ public class User {
 	private String role;
 	private CustomerType typeOfCustomer;
 	
+
 	public User() {}
 	
 	public User(String username, String password, String firstname, String lastname, String gender, Date birthday,String role, CustomerType typeOfCustomer) {
