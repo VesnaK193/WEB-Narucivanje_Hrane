@@ -1,1 +1,34 @@
-ads
+[{
+  "username" : "admin",
+  "password" : "123",
+  "firstname" : "Vesna",
+  "lastname" : "Karaklic",
+  "gender" : "Female",
+  "birthday" : 1624406400000,
+  "role" : "ADMIN"
+}, {
+  "username" : "customer",
+  "password" : "123",
+  "firstname" : "Petar",
+  "lastname" : "Petrovic",
+  "gender" : "Male",
+  "birthday" : 1624406400000,
+  "role" : "CUSTOMER"
+}, {
+  "username" : "manager",
+  "password" : "123",
+  "firstname" : "Marko",
+  "lastname" : "Markovic",
+  "gender" : "Male",
+  "birthday" : 1624406400000,
+  "role" : "MANAGER"
+}, {
+  "username" : "deliverer",
+  "password" : "123",
+  "firstname" : "Milan",
+  "lastname" : "Milanovic",
+  "gender" : "Male",
+  "birthday" : 1624406400000,
+  "role" : "DELIVERER"
+} 
+]

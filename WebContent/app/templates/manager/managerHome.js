@@ -10,6 +10,11 @@ Vue.component("manager-home", {
 	    }
 },
 template: ` 
-	<div>manager works</div>
+	<div>
+	<div class="min-cover">
+		<main-header></main-header>
+	</div>
+		<main-footer></main-footer>
+	</div>
  `
 })

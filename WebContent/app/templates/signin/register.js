@@ -22,7 +22,6 @@ Vue.component("register", {
 	      <input type="text" class="form-control" name="username" v-model="username" placeholder="Username">
 	      <label for="floatingInput">Username</label>
 	    </div>
-	    
 	    <div class="form-floating">
 	      <input type="password" class="form-control" name="password" v-model="password" placeholder="Password">
 	      <label for="floatingPassword">Password</label>
@@ -55,15 +54,7 @@ Vue.component("register", {
 	
 </div>
 
-`
-	, mounted() {
-		axios
-		.get("rest/user/allUsers")
-		.then(response => {
-			this.users = fixDate(response.data);
-			console.log(response.data);
-		});
-	},
+`,
 	methods: {
 		checkForm: function () {
 			if(this.username == "" || this.password == "" || this.firstname == "" || this.lastname == "" || this.gender == "" || this.birthday == null || this.birthday == ""){

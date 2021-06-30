@@ -10,12 +10,10 @@ public class User {
 	private String gender;
 	private Date birthday;
 	private String role;
-	private CustomerType typeOfCustomer;
-	
 
 	public User() {}
 	
-	public User(String username, String password, String firstname, String lastname, String gender, Date birthday,String role, CustomerType typeOfCustomer) {
+	public User(String username, String password, String firstname, String lastname, String gender, Date birthday,String role) {
 		this.username = username;
 		this.password = password;
 		this.firstname = firstname;
@@ -23,7 +21,6 @@ public class User {
 		this.gender = gender;
 		this.birthday = birthday;
 		this.role = role;
-		this.typeOfCustomer = typeOfCustomer;
 	}
 	
 	public String getUsername() {
@@ -68,13 +65,4 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public CustomerType getTypeOfCustomer() {
-		return typeOfCustomer;
-	}
-	public void setTypeOfCustomer(CustomerType typeOfCustomer) {
-		this.typeOfCustomer = typeOfCustomer;
-	}
-	
-	
-
 }

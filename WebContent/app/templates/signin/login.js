@@ -40,14 +40,16 @@ Vue.component("login", {
 			} else {
 				this.errorMessage = ""
 				var s = {username:this.username, password:this.password};
+				
 				axios
 				.post("rest/user/login", s)
 				.then(response => {
 					if(response.data != null && response.data != "") {
 						this.errorMessage = "";
+						let loggedUser = response.data;
 
 						localStorage.user =JSON.stringify( response.data);
-						window.location.href = "/NarucivanjeHrane/#/user/home";
+						window.location.href = "/NarucivanjeHrane/#/"+loggedUser.role.toLowerCase();
 					} else {
 						this.errorMessage = "Wrong username and password!";
 					}
