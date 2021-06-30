@@ -7,7 +7,6 @@ Vue.component("admin-managers", {
 	    	modal_lastname: "",
 	    	modal_gender: "",
 	    	modal_birthday: null,
-	    	modal_errorMessage:"",
 	    	managers:null,
 			errorMessage:"",
 	    }
@@ -30,14 +29,14 @@ methods: {
 //			//If user with this username exist return data will be null
 			
 			axios
-			.post("rest/manager/add", s)
+			.post("rest/user/register", s)
 			.then(response => {
 				if(response.data==""){
 					this.errorMessage = "Username already exists!";
 				} else {
 					this.errorMessage = "";
 					axios
-					.post("rest/user/register", s);
+					.post("rest/manager/add", s);
 					axios
 					.get("rest/manager/allManagers")
 					.then(response => {

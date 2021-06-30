@@ -4,6 +4,7 @@ const Homepage = { template: '<homepage></homepage>' }
 const Admin = {template: '<admin></admin>'}
 const AdminHome = {template: '<admin-home></admin-home>'}
 const AdminManagers = {template: '<admin-managers></admin-managers>'}
+const AdminDeliverers = {template: '<admin-deliverers></admin-deliverers>'}
 const Customer = {template: '<customer></customer>'}
 const CustomerHome = {template: '<customer-home></customer-home>'}
 const CustomerProfile = {template: '<customer-profile></customer-profile>'}
@@ -29,6 +30,10 @@ const router = new VueRouter({
 	    		{
 	    			path: 'managers',
 	    			component:AdminManagers,
+	    		},
+	    		{
+	    			path: 'deliverers',
+	    			component:AdminDeliverers,
 	    		},
 	    	],
 	    	beforeEnter: (to, from, next) => {
