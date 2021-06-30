@@ -12,48 +12,51 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import dao.DelivererDAO;
 import dao.ManagerDAO;
+import entities.Deliverer;
 import entities.Manager;
 import entities.User;
 
-@Path("/manager")
-public class ManagerService {
+@Path("/deliverer")
+public class DelivererService {
 	
 	@Context
 	ServletContext ctx;
 	
-	public ManagerService() {
+	public DelivererService() {
 		
 	}
 
 	@PostConstruct
 	public void init() {
-		if (ctx.getAttribute("managerDAO") == null) {
+		if (ctx.getAttribute("delivererDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
-			ctx.setAttribute("managerDAO", new ManagerDAO(contextPath));
+			ctx.setAttribute("delivererDAO", new DelivererDAO(contextPath));
 		}
 	}
 	
 	@GET
-	@Path("/allManagers")
+	@Path("/allDeliverers")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<Manager> allManagers() {
-		ManagerDAO managerDAO = (ManagerDAO) ctx.getAttribute("managerDAO");
-		return managerDAO.findAll();
+	public Collection<Deliverer> allDeliverers() {
+		DelivererDAO delivererDAO = (DelivererDAO) ctx.getAttribute("delivererDAO");
+		return delivererDAO.findAll();
 	}
 	
 	@POST
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Manager addManager(Manager m) {
+	public Deliverer addDeliverer(Deliverer d) {
 		System.out.println("Dodaje");
-		ManagerDAO managerDAO = (ManagerDAO) ctx.getAttribute("managerDAO");
-		Manager managerWithNewUsername = managerDAO.findByUsername(m.getUsername());
-		if(managerWithNewUsername==null) {
-			managerDAO.addManager(m);
-			return m;
+		DelivererDAO delivererDAO = (DelivererDAO) ctx.getAttribute("delivererDAO");
+		Deliverer delivererWithNewUsername = delivererDAO.findByUsername(d.getUsername());
+		if(delivererWithNewUsername==null) {
+			delivererDAO.addDeliverer(d);
+			return d;
 		}
 		return null;
 	}
+
 }
