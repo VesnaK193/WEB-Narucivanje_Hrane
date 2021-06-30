@@ -5,6 +5,10 @@ body {
 .min-cover{
 	min-height:90vh;
 }
+
+.min-cover-85{
+	min-height:85vh;
+}
 .bg-white {
 	background:white !important;
 }

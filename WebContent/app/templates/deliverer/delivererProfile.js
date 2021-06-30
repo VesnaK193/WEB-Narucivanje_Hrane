@@ -1,4 +1,4 @@
-Vue.component("deliverer-home", {
+Vue.component("deliverer-profile", {
 	data: function () {
 	    return {
 	    	username: null,
@@ -6,7 +6,7 @@ Vue.component("deliverer-home", {
 },
 template: ` 
 <div>
-	Home works
+	Profile works!
 </div>
  `
 })

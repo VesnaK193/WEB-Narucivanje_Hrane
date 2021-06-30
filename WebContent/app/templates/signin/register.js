@@ -55,15 +55,7 @@ Vue.component("register", {
 	
 </div>
 
-`
-	, mounted() {
-		axios
-		.get("rest/user/allUsers")
-		.then(response => {
-			this.users = fixDate(response.data);
-			console.log(response.data);
-		});
-	},
+`,
 	methods: {
 		checkForm: function () {
 			if(this.username == "" || this.password == "" || this.firstname == "" || this.lastname == "" || this.gender == "" || this.birthday == null || this.birthday == ""){

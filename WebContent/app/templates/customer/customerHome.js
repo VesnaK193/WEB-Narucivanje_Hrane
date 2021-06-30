@@ -1,4 +1,4 @@
-Vue.component("deliverer-home", {
+Vue.component("customer-home", {
 	data: function () {
 	    return {
 	    	username: null,
