@@ -9,7 +9,7 @@ public class Customer extends User {
 	private CustomerType typeOfCustomer;
 	
 	public Customer () {
-		
+		super();
 	}
 
 	public Collection<Order> getAllOrders() {

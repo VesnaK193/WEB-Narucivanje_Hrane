@@ -5,7 +5,7 @@ Vue.component("admin", {
 		    }
 	},
 	template: ` 
-<div>
+<div style="position:relative">
 <link href="assets/css/admin.css" rel="stylesheet" type="text/css" />
 	<div class="min-cover">
 		<admin-header></admin-header> 
@@ -18,12 +18,12 @@ Vue.component("admin", {
 		          <span>Manage entities</span>
 		        </h6>
 		          <li class="nav-item">
-		            <a class="nav-link active" aria-current="page" href="#">
+		            <a class="nav-link active" aria-current="page" href="/NarucivanjeHrane/#/admin">
 		              Dashboard
 		            </a>
 		          </li>
 		          <li class="nav-item">
-		            <a class="nav-link" href="#">
+		            <a class="nav-link" href="/NarucivanjeHrane/#/admin/managers">
 		              Managers
 		            </a>
 		          </li>

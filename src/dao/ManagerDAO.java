@@ -5,8 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -15,58 +13,58 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import entities.Manager;
 import entities.User;
 
-public class UserDAO {
-	private Map<String, User> users = new HashMap<>();
+public class ManagerDAO {
+	private Map<String, Manager> managers = new HashMap<>();
 	private String contextPath = "";
 	
-	public UserDAO() {
-		loadUsers();
+	public ManagerDAO() {
+		loadManagers();
 	}
 	
-	public UserDAO(String contextPath) {
+	public ManagerDAO(String contextPath) {
 		this.contextPath = contextPath;
-		loadUsers();
+		loadManagers();
 	}
 	
 	public User findByUsernameAndPassword(String username, String password) {
-		if (!users.containsKey(username)) {
+		if (!managers.containsKey(username)) {
 			return null;
 		}
-		User user = users.get(username);
-		if (!user.getPassword().equals(password)) {
+		Manager manager = managers.get(username);
+		if (!manager.getPassword().equals(password)) {
 			return null;
 		}
-		return user;
+		return manager;
 	}
 	
-	public User findByUsername(String username) {
-		if (!users.containsKey(username)) {
+	public Manager findByUsername(String username) {
+		if (!managers.containsKey(username)) {
 			return null;
 		}
-		User user = users.get(username);
-		return user;
+		Manager manager = managers.get(username);
+		return manager;
 	}
 	
-	public Collection<User> findAll() {
-		return users.values();
+	public Collection<Manager> findAll() {
+		return managers.values();
 	}
 	
-	public void loadUsers() {
+	public void loadManagers() {
 		BufferedReader reader = null;
 		try {
-			File file = new File(contextPath + "storage\\users.txt");
+			File file = new File(contextPath + "storage\\managers.txt");
 			reader = new BufferedReader(new FileReader(file));
 			String json = reader.lines().collect(Collectors.joining());
 			System.out.println(json);
-			Collection<User> uList = new ObjectMapper().readValue(json, new TypeReference<List<User>>(){});
+			Collection<Manager> mList = new ObjectMapper().readValue(json, new TypeReference<List<Manager>>(){});
 			
-			for(User u : uList) {
-				users.put(u.getUsername(), u);
+			for(Manager m : mList) {
+				managers.put(m.getUsername(), m);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -80,15 +78,15 @@ public class UserDAO {
 		}
 	}
 	
-	public void addUser(User user) {
-		File file = new File(contextPath + "storage\\users.txt");
+	public void addManager(Manager manager) {
+		File file = new File(contextPath + "storage\\managers.txt");
 		
-		users.put(user.getUsername(), user);
+		managers.put(manager.getUsername(), manager);
 		
 		BufferedWriter writer = null;
 		try {
 		    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		    String json = ow.writeValueAsString(users.values());
+		    String json = ow.writeValueAsString(managers.values());
 
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
@@ -103,5 +101,4 @@ public class UserDAO {
 			}
 		}
 	}
-	
 }

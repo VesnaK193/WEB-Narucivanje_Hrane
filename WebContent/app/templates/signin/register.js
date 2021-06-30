@@ -22,7 +22,6 @@ Vue.component("register", {
 	      <input type="text" class="form-control" name="username" v-model="username" placeholder="Username">
 	      <label for="floatingInput">Username</label>
 	    </div>
-	    
 	    <div class="form-floating">
 	      <input type="password" class="form-control" name="password" v-model="password" placeholder="Password">
 	      <label for="floatingPassword">Password</label>
