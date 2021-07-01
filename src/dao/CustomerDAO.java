@@ -15,46 +15,44 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import entities.Deliverer;
-import entities.Manager;
-import entities.User;
+import entities.Customer;
 
-public class ManagerDAO {
-	private Map<Integer, Manager> managers = new HashMap<>();
+public class CustomerDAO {
+	private Map<Integer, Customer> customers = new HashMap<>();
 	private String contextPath = "";
 	
-	public ManagerDAO() {
-		loadManagers();
+	public CustomerDAO() {
+		loadCustomers();
 	}
 	
-	public ManagerDAO(String contextPath) {
+	public CustomerDAO(String contextPath) {
 		this.contextPath = contextPath;
-		loadManagers();
+		loadCustomers();
 	}
 	
-	public Manager findById(int id) {
-		if (!managers.containsKey(id)) {
+	public Customer findById(int id) {
+		if (!customers.containsKey(id)) {
 			return null;
 		}
-		Manager manager = managers.get(id);
-		return manager;
+		Customer customer = customers.get(id);
+		return customer;
 	}
 	
-	public Collection<Manager> findAll() {
-		return managers.values();
+	public Collection<Customer> findAll() {
+		return customers.values();
 	}
 	
-	public void loadManagers() {
+	public void loadCustomers() {
 		BufferedReader reader = null;
 		try {
-			File file = new File(contextPath + "storage\\managers.txt");
+			File file = new File(contextPath + "storage\\customers.txt");
 			reader = new BufferedReader(new FileReader(file));
 			String json = reader.lines().collect(Collectors.joining());
 			System.out.println(json);
-			Collection<Manager> mList = new ObjectMapper().readValue(json, new TypeReference<List<Manager>>(){});
+			Collection<Customer> cList = new ObjectMapper().readValue(json, new TypeReference<List<Customer>>(){});
 			
-			for(Manager m : mList) {
-				managers.put(m.getId(), m);
+			for(Customer c : cList) {
+				customers.put(c.getId(), c);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -68,15 +66,15 @@ public class ManagerDAO {
 		}
 	}
 	
-	public void addManager(Manager manager) {
-		File file = new File(contextPath + "storage\\managers.txt");
+	public void addCustomer(Customer customer) {
+		File file = new File(contextPath + "storage\\customers.txt");
 		
-		managers.put(manager.getId(), manager);
+		customers.put(customer.getId(), customer);
 		
 		BufferedWriter writer = null;
 		try {
 		    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		    String json = ow.writeValueAsString(managers.values());
+		    String json = ow.writeValueAsString(customers.values());
 
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
@@ -92,20 +90,23 @@ public class ManagerDAO {
 		}
 	}
 	
-	public Manager updateManager(Manager manager) {
-		File file = new File(contextPath + "storage\\managers.txt");
+	public Customer updateCustomer(Customer customer) {
+		File file = new File(contextPath + "storage\\customers.txt");
 		
-		Manager oldManager = managers.get(manager.getId());
+		Customer oldCustomer = customers.get(customer.getId());
 		try {
-			manager.setRestaurant(oldManager.getRestaurant());
+			customer.setAllOrders(oldCustomer.getAllOrders());
+			customer.setShoppingCart(oldCustomer.getShoppingCart());
+			customer.setNumberOfPoints(oldCustomer.getNumberOfPoints());
+			customer.setTypeOfCustomer(oldCustomer.getTypeOfCustomer());
 		} catch(NullPointerException ex) {}
 		
-		managers.put(manager.getId(), manager);
+		customers.put(customer.getId(), customer);
 		
 		BufferedWriter writer = null;
 		try {
 		    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		    String json = ow.writeValueAsString(managers.values());
+		    String json = ow.writeValueAsString(customers.values());
 
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
@@ -119,6 +120,6 @@ public class ManagerDAO {
 				catch (Exception e) { }
 			}
 		}
-		return manager;
+		return customer;
 	}
 }

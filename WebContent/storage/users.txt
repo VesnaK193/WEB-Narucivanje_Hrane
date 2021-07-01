@@ -1,4 +1,5 @@
 [{
+  "id" : 0,
   "username" : "admin",
   "password" : "123",
   "firstname" : "Vesna",
@@ -7,6 +8,7 @@
   "birthday" : 1624406400000,
   "role" : "ADMIN"
 }, {
+  "id" : 1,
   "username" : "customer",
   "password" : "123",
   "firstname" : "Petar",
@@ -15,6 +17,7 @@
   "birthday" : 1624406400000,
   "role" : "CUSTOMER"
 }, {
+  "id" : 2,
   "username" : "manager",
   "password" : "123",
   "firstname" : "Marko",
@@ -23,6 +26,7 @@
   "birthday" : 1624406400000,
   "role" : "MANAGER"
 }, {
+  "id" : 3,
   "username" : "deliverer",
   "password" : "123",
   "firstname" : "Milan",
@@ -30,5 +34,4 @@
   "gender" : "Male",
   "birthday" : 1624406400000,
   "role" : "DELIVERER"
-} 
-]
+} ]

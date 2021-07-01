@@ -37,11 +37,19 @@ public class DelivererService {
 	}
 	
 	@GET
-	@Path("/allDeliverers")
+	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Deliverer> allDeliverers() {
 		DelivererDAO delivererDAO = (DelivererDAO) ctx.getAttribute("delivererDAO");
 		return delivererDAO.findAll();
+	}
+	@POST
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Deliverer updateDeliverer(Deliverer d) {
+		DelivererDAO delivererDAO = (DelivererDAO) ctx.getAttribute("delivererDAO");
+		return delivererDAO.updateDeliverer(d);
 	}
 	
 	@POST
@@ -51,12 +59,8 @@ public class DelivererService {
 	public Deliverer addDeliverer(Deliverer d) {
 		System.out.println("Dodaje");
 		DelivererDAO delivererDAO = (DelivererDAO) ctx.getAttribute("delivererDAO");
-		Deliverer delivererWithNewUsername = delivererDAO.findByUsername(d.getUsername());
-		if(delivererWithNewUsername==null) {
-			delivererDAO.addDeliverer(d);
-			return d;
-		}
-		return null;
+		delivererDAO.addDeliverer(d);
+		return d;
 	}
 
 }

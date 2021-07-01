@@ -66,6 +66,19 @@ public class UserService {
 	}
 	
 	@POST
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public User update(User u) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		if(userDao.isNewUsernameUnique(u)) {
+			userDao.updateUser(u);
+			return u;
+		}
+		return null;
+	}
+	
+	@POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)

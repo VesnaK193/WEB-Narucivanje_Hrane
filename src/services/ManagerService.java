@@ -12,7 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import dao.DelivererDAO;
 import dao.ManagerDAO;
+import entities.Deliverer;
 import entities.Manager;
 import entities.User;
 
@@ -43,17 +45,22 @@ public class ManagerService {
 	}
 	
 	@POST
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Manager updateManager(Manager m) {
+		ManagerDAO managerDAO = (ManagerDAO) ctx.getAttribute("managerDAO");
+		return managerDAO.updateManager(m);
+	}
+	
+	@POST
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Manager addManager(Manager m) {
 		System.out.println("Dodaje");
 		ManagerDAO managerDAO = (ManagerDAO) ctx.getAttribute("managerDAO");
-		Manager managerWithNewUsername = managerDAO.findByUsername(m.getUsername());
-		if(managerWithNewUsername==null) {
-			managerDAO.addManager(m);
-			return m;
-		}
-		return null;
+		managerDAO.addManager(m);
+		return m;
 	}
 }

@@ -14,7 +14,7 @@ Vue.component("admin-deliverers", {
 },
 mounted() {
 	axios
-	.get("rest/deliverer/allDeliverers")
+	.get("rest/deliverer/all")
 	.then(response => {
 		this.deliverers = response.data;
 	});
@@ -42,7 +42,7 @@ methods: {
 						console.log(response1.data);
 						if(response1.data != "") {
 							axios
-							.get("rest/deliverer/allDeliverers")
+							.get("rest/deliverer/all")
 							.then(response2 => (this.deliverers = response2.data ));
 						}
 					});

@@ -6,6 +6,7 @@ const AdminHome = {template: '<admin-home></admin-home>'}
 const AdminManagers = {template: '<admin-managers></admin-managers>'}
 const AdminDeliverers = {template: '<admin-deliverers></admin-deliverers>'}
 const AdminRestaurants = {template: '<admin-restaurants></admin-restaurants>'}
+const AdminProfile = {template: '<admin-profile></admin-profile>'}
 const Customer = {template: '<customer></customer>'}
 const CustomerHome = {template: '<customer-home></customer-home>'}
 const CustomerProfile = {template: '<customer-profile></customer-profile>'}
@@ -33,6 +34,10 @@ const router = new VueRouter({
 	    		{
 	    			path: 'managers',
 	    			component:AdminManagers,
+	    		},
+	    		{
+	    			path: 'profile',
+	    			component:AdminProfile,
 	    		},
 	    		{
 	    			path: 'deliverers',
