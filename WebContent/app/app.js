@@ -9,7 +9,9 @@ const AdminRestaurants = {template: '<admin-restaurants></admin-restaurants>'}
 const Customer = {template: '<customer></customer>'}
 const CustomerHome = {template: '<customer-home></customer-home>'}
 const CustomerProfile = {template: '<customer-profile></customer-profile>'}
+const Manager = {template: '<manager></manager>'}
 const ManagerHome = {template: '<manager-home></manager-home>'}
+const ManagerProfile = {template: '<manager-profile></manager-profile>'}
 const Deliverer = {template: '<deliverer></deliverer>'}
 const DelivererHome = {template: '<deliverer-home></deliverer-home>'}
 const DelivererProfile = {template: '<deliverer-profile></deliverer-profile>'}
@@ -50,8 +52,18 @@ const router = new VueRouter({
 	         }
 	    },
 	    { 
-	    	path: '/manager/home', 
-	    	component: ManagerHome,
+	    	path: '/manager', 
+	    	component: Manager,
+	    	children: [
+	    		{
+	    			path: '',
+	    			component: ManagerHome
+	    		},
+	    		{
+	    			path: 'profile',
+	    			component: ManagerProfile
+	    		}
+	    	],
 	    	beforeEnter: (to, from, next) => {
 	    		if(loggedAs("MANAGER")){
 	    			next();
