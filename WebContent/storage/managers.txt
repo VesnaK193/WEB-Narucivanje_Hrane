@@ -1,0 +1,11 @@
+[ {
+  "id" : 2,
+  "username" : "manager",
+  "password" : "123",
+  "firstname" : "Marko",
+  "lastname" : "Markovic",
+  "gender" : "Male",
+  "birthday" : 1624406400000,
+  "role" : "MANAGER",
+  "restaurant" : null
+} ]

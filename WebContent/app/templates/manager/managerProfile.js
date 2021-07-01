@@ -1,4 +1,4 @@
-Vue.component("customer-profile", {
+Vue.component("manager-profile", {
 	data: function () {
 	    return {
 	    	user:null,
@@ -10,6 +10,7 @@ mounted() {
 	let userString = localStorage.user?localStorage.user:"";
 	if(userString !=""){
 		this.updateFormData();
+			
 	}
 	
 },
@@ -18,6 +19,7 @@ methods: {
 		console.log(this.modal_user);
 		//Conver to miliseconds
 		this.modal_user.birthday = new Date(this.modal_user.birthday).getTime();
+//		var s = {id:this.modal_id, username:this.modal_username, password:this.modal_password, firstname:this.modal_firstname, lastname:this.modal_lastname, gender:this.modal_gender, birthday:birthdayInMS, role:this.modal_role};
 		axios
 		.post("rest/user/update", this.modal_user)
 		.then(response => {
@@ -26,11 +28,11 @@ methods: {
 				this.errorMessage = "Username already exists!";
 			} else {
 				axios
-				.post("rest/customer/update", this.modal_user)
+				.post("rest/manager/update", this.modal_user)
 				.then(response => {
 					localStorage.user = JSON.stringify( this.modal_user);
 					this.updateFormData();
-					$("#editCustomerModal").modal('hide');
+					$("#editManagerModal").modal('hide');
 				});
 			}
 		});
@@ -52,6 +54,8 @@ template: `
       <div class="row">
         <div class="col">
           <div class="card shadow-sm">
+            <!--<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+			-->
             <div class="card-body">
               <p class="card-text">Username: {{user.username}}</p>
               <p class="card-text">Firstname: {{user.firstname}}</p>
@@ -61,7 +65,7 @@ template: `
               <p class="card-text">Birthday: {{user.birthday}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editCustomerModal">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editManagerModal">Edit</button>
                 </div>
                 <small class="text-muted">9 mins</small>
               </div>
@@ -70,11 +74,11 @@ template: `
         </div>
         </div>
         <!-- Modal -->
-		<div class="modal fade" id="editCustomerModal" tabindex="-1" aria-labelledby="Modal" aria-hidden="true">
+		<div class="modal fade" id="editManagerModal" tabindex="-1" aria-labelledby="Modal" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title">Edit customer</h5>
+		        <h5 class="modal-title">Edit deliverer</h5>
 		        <button type="button" v-on:click="updateFormData()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">

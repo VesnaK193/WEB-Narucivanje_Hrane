@@ -70,7 +70,7 @@ public class RestaurantDAO {
 	public void addRestaurant(Restaurant restaurant) {
 		File file = new File(contextPath + "storage\\restaurants.txt");
 		restaurant.setId(calculateLastIndex());
-		restaurants.put(Integer.valueOf(restaurant.getId()), restaurant);
+		restaurants.put(restaurant.getId(), restaurant);
 		
 		BufferedWriter writer = null;
 		try {

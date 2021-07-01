@@ -23,6 +23,11 @@ Vue.component("admin", {
 		            </a>
 		          </li>
 		          <li class="nav-item">
+		            <a class="nav-link active" aria-current="page" href="/NarucivanjeHrane/#/admin/profile">
+		              Profile
+		            </a>
+		          </li>
+		          <li class="nav-item">
 		            <a class="nav-link" href="/NarucivanjeHrane/#/admin/managers">
 		              Managers
 		            </a>

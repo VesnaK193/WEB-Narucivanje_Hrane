@@ -17,10 +17,11 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 import entities.Deliverer;
 import entities.Manager;
+import entities.Restaurant;
 import entities.User;
 
 public class DelivererDAO {
-	private Map<String, Deliverer> deliverers = new HashMap<>();
+	private Map<Integer, Deliverer> deliverers = new HashMap<>();
 	private String contextPath = "";
 	
 	public DelivererDAO() {
@@ -32,22 +33,11 @@ public class DelivererDAO {
 		loadDeliverers();
 	}
 	
-	public User findByUsernameAndPassword(String username, String password) {
-		if (!deliverers.containsKey(username)) {
+	public Deliverer findById(int id) {
+		if (!deliverers.containsKey(id)) {
 			return null;
 		}
-		Deliverer deliverer = deliverers.get(username);
-		if (!deliverer.getPassword().equals(password)) {
-			return null;
-		}
-		return deliverer;
-	}
-	
-	public Deliverer findByUsername(String username) {
-		if (!deliverers.containsKey(username)) {
-			return null;
-		}
-		Deliverer deliverer = deliverers.get(username);
+		Deliverer deliverer = deliverers.get(id);
 		return deliverer;
 	}
 	
@@ -65,7 +55,7 @@ public class DelivererDAO {
 			Collection<Deliverer> dList = new ObjectMapper().readValue(json, new TypeReference<List<Deliverer>>(){});
 			
 			for(Deliverer d : dList) {
-				deliverers.put(d.getUsername(), d);
+				deliverers.put(d.getId(), d);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -82,7 +72,7 @@ public class DelivererDAO {
 	public void addDeliverer(Deliverer deliverer) {
 		File file = new File(contextPath + "storage\\deliverers.txt");
 		
-		deliverers.put(deliverer.getUsername(), deliverer);
+		deliverers.put(deliverer.getId(), deliverer);
 		
 		BufferedWriter writer = null;
 		try {
@@ -101,6 +91,36 @@ public class DelivererDAO {
 				catch (Exception e) { }
 			}
 		}
+	}
+	
+	public Deliverer updateDeliverer(Deliverer deliverer) {
+		File file = new File(contextPath + "storage\\deliverers.txt");
+		
+		Deliverer oldDeliverer = deliverers.get(deliverer.getId());
+		try {
+			deliverer.setOrders(oldDeliverer.getOrders());
+		} catch(NullPointerException ex) {}
+		
+		deliverers.put(deliverer.getId(), deliverer);
+		
+		BufferedWriter writer = null;
+		try {
+		    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		    String json = ow.writeValueAsString(deliverers.values());
+
+		    writer = new BufferedWriter(new FileWriter(file));
+		    writer.write(json);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if ( writer != null ) {
+				try {
+					writer.close();
+				}
+				catch (Exception e) { }
+			}
+		}
+		return deliverer;
 	}
 
 }
