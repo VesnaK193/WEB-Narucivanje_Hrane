@@ -5,6 +5,7 @@ import java.util.Collection;
 import enums.RestaurantStatus;
 
 public class Restaurant {
+	private int id;
 	private String name;
 	private String type;
 	private Collection<Product> products;
@@ -14,6 +15,14 @@ public class Restaurant {
 	
 	public Restaurant () {
 		
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
