@@ -1,13 +1,6 @@
-.feather {
-  width: 16px;
-  height: 16px;
-  vertical-align: text-bottom;
+header {
+	background-color: #212529;
 }
-
-/*
- * Sidebar
- */
-
 .sidebar {
   position: fixed;
   top: 0;
@@ -93,4 +86,11 @@
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+.bgManager{
+	background:#671010;
+}
+.bgManager a.nav-link {
+	color:white !important;
 }

@@ -1,7 +1,9 @@
 Vue.component("main-header", {
 	data: function () {
 		    return {
-		    	userLogged: false
+		    	customerRole:false,
+		    	delivererRole:false,
+		    	noRole: true
 		    }
 	},
 	template: ` 
@@ -12,17 +14,20 @@ Vue.component("main-header", {
       <h3>DriveFood</h3>
       </a>
 
-      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="/NarucivanjeHrane/#/" class="nav-link px-2 link-secondary">Home</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Profile</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+      <ul id="headerLinks" class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" v-if="customerRole">
+        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/home" class="nav-link px-2 link-secondary">Home</a></li>
+        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/profile" class="nav-link px-2 link-dark"">Profile</a></li>
+      </ul>
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" v-if="delivererRole">
+        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/deliverer/home" class="nav-link px-2 link-secondary">Home</a></li>
+        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/deliverer/profile" class="nav-link px-2 link-dark"">Profile</a></li>
       </ul>
 
-      <div class="col-md-3 text-end" v-if="!userLogged">
+      <div class="col-md-3 text-end" v-if="noRole">
         <a type="button" href="/NarucivanjeHrane/#/login" class="btn btn-outline-primary me-2">Login</a>
         <a type="button" href="/NarucivanjeHrane/#/register" class="btn btn-primary">Sign-up</a>
       </div>
-      <div class="col-md-3 text-end" v-if="userLogged">
+      <div class="col-md-3 text-end" v-if="!noRole" >
         <a type="button" href="/NarucivanjeHrane/#/login" v-on:click="logout()" class="btn btn-primary">Log out</a>
       </div>
     </header>
@@ -30,19 +35,42 @@ Vue.component("main-header", {
 </div>  
 `,
 	mounted() {
-		let user = localStorage.user?localStorage.user:"";
-		this.userLogged = user==""?false:true;
-//		axios
-//		.get("rest/user/allUsers")
-//		.then(response => {
-//			this.users = fixDate(response.data);
-//			console.log(response.data);
-//		});
+		let user = JSON.parse(localStorage.user?localStorage.user:"");
+		if(user.role=="CUSTOMER"){
+			this.customerRole = true;
+			this.noRole=false;
+		}
+		if(user.role=="DELIVERER"){
+			this.delivererRole = true;
+			this.noRole=false;
+		}
+		
+		function loggedAs(type) {
+			let userString = localStorage.user?localStorage.user:"";
+			if(userString !=""){
+				let user = JSON.parse(localStorage.user);
+				if(user.role == type){
+					return true;
+				}
+				return false;
+			}
+			return false;
+		}
 	},
 	
 	methods: {
+		test : function(event) {
+			console.log(event)
+		},
 		logout: function () {
 			localStorage.user = "";
 		}
 	}
 });
+function active(element) {
+	let oldElem = element.parentElement.querySelector(".link-secondary");
+	oldElem.classList.remove("link-secondary");
+	oldElem.classList.add("link-dark");
+	element.querySelector("a").classList.remove("link-dark");
+	element.querySelector("a").classList.add("link-secondary");
+}
