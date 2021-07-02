@@ -23,11 +23,6 @@ Vue.component("admin", {
 		            </a>
 		          </li>
 		          <li class="nav-item">
-		            <a class="nav-link active" aria-current="page" href="/NarucivanjeHrane/#/admin/profile">
-		              Profile
-		            </a>
-		          </li>
-		          <li class="nav-item">
 		            <a class="nav-link" href="/NarucivanjeHrane/#/admin/managers">
 		              Managers
 		            </a>
@@ -43,8 +38,16 @@ Vue.component("admin", {
 		            </a>
 		          </li>
 		          <li class="nav-item">
-		            <a class="nav-link" href="#">
+		            <a class="nav-link" href="/NarucivanjeHrane/#/admin/customers">
 		              Customers
+		            </a>
+		          </li>
+		        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+		          <span>My data</span>
+		        </h6>
+		          <li class="nav-item">
+		            <a class="nav-link" aria-current="page" href="/NarucivanjeHrane/#/admin/profile">
+		              Profile
 		            </a>
 		          </li>
 		        </ul>

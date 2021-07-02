@@ -6,6 +6,7 @@ const AdminHome = {template: '<admin-home></admin-home>'}
 const AdminManagers = {template: '<admin-managers></admin-managers>'}
 const AdminDeliverers = {template: '<admin-deliverers></admin-deliverers>'}
 const AdminRestaurants = {template: '<admin-restaurants></admin-restaurants>'}
+const AdminCustomers = {template: '<admin-customers></admin-customers>'}
 const AdminProfile = {template: '<admin-profile></admin-profile>'}
 const Customer = {template: '<customer></customer>'}
 const CustomerHome = {template: '<customer-home></customer-home>'}
@@ -16,13 +17,34 @@ const ManagerProfile = {template: '<manager-profile></manager-profile>'}
 const Deliverer = {template: '<deliverer></deliverer>'}
 const DelivererHome = {template: '<deliverer-home></deliverer-home>'}
 const DelivererProfile = {template: '<deliverer-profile></deliverer-profile>'}
+const PageNotFound = {template: '<div><h1 class="text-center mt-5">404! Page not found.</h1></div>'}
 
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
 	    { path: '/', component: Homepage},
-	    { path: '/login', component: Login },
-	    { path: '/register', component: Register },
+	    { 
+	    	path: '/login', 
+	    	component: Login, 
+	    	beforeEnter: (to, from, next) => {
+	    		if(isLogged()){
+	    			next("/"+getCurrentRole());
+	    		} else {
+	    			next();
+	    		}
+	         }
+	    },
+	    { 
+	    	path: '/register', 
+	    	component: Register,  
+	    	beforeEnter: (to, from, next) => {
+	    		if(isLogged()){
+	    			next("/"+getCurrentRole());
+	    		} else {
+	    			next();
+	    		}
+	         }
+	    },
 	    { 
 	    	path: '/admin', 
 	    	component: Admin,
@@ -46,6 +68,10 @@ const router = new VueRouter({
 	    		{
 	    			path: 'restaurants',
 	    			component:AdminRestaurants,
+	    		},
+	    		{
+	    			path: 'customers',
+	    			component:AdminCustomers,
 	    		},
 	    	],
 	    	beforeEnter: (to, from, next) => {
@@ -88,6 +114,10 @@ const router = new VueRouter({
 	    		{
 	    			path: 'profile',
 	    			component: CustomerProfile
+	    		},
+	    		{
+	    			path: 'home',
+	    			component: CustomerHome
 	    		}
 	    	],
 	    	beforeEnter: (to, from, next) => {
@@ -109,6 +139,10 @@ const router = new VueRouter({
 	    		{
 	    			path: 'profile',
 	    			component: DelivererProfile
+	    		},
+	    		{
+	    			path: 'home',
+	    			component: DelivererHome
 	    		}
 	    	],
 	    	beforeEnter: (to, from, next) => {
@@ -119,6 +153,7 @@ const router = new VueRouter({
 	    		}
 	         }
 	    },
+	    { path: "*", component: PageNotFound }
 	  ]
 });
 
@@ -126,7 +161,17 @@ var app = new Vue({
 	router,
 	el: '#appContent'
 });
-
+function getCurrentRole(){
+	let user = JSON.parse(localStorage.user);
+	return user.role.toLowerCase();
+}
+function isLogged(){
+	let userString = localStorage.user?localStorage.user:"";
+	if(userString !=""){
+		return true;
+	}
+	return false;
+}
 function loggedAs(type) {
 	let userString = localStorage.user?localStorage.user:"";
 	if(userString !=""){
