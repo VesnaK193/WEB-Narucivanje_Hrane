@@ -44,6 +44,14 @@ public class ManagerService {
 		return managerDAO.findAll();
 	}
 	
+	@GET
+	@Path("/allManagersWhitoutRestaurant")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Manager> allWhitoutRestaurant() {
+		ManagerDAO managerDAO = (ManagerDAO) ctx.getAttribute("managerDAO");
+		return managerDAO.findAllWhitoutRestaurant();
+	}
+	
 	@POST
 	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)
