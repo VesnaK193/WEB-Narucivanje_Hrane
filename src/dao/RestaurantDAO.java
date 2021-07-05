@@ -67,7 +67,7 @@ public class RestaurantDAO {
 		}
 	}
 	
-	public void addRestaurant(Restaurant restaurant) {
+	public Restaurant addRestaurant(Restaurant restaurant) {
 		File file = new File(contextPath + "storage\\restaurants.txt");
 		restaurant.setId(calculateLastIndex());
 		restaurants.put(restaurant.getId(), restaurant);
@@ -89,6 +89,7 @@ public class RestaurantDAO {
 				catch (Exception e) { }
 			}
 		}
+		return restaurant;
 	}
 
 	private int calculateLastIndex() {

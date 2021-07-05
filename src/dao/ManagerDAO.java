@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,17 @@ public class ManagerDAO {
 	
 	public Collection<Manager> findAll() {
 		return managers.values();
+	}
+
+	public Collection<Manager> findAllWhitoutRestaurant() {
+		Collection<Manager> mList = managers.values();
+		Collection<Manager> mListNew = new ArrayList<>();
+		for(Manager m : mList) {
+			if(m.getRestaurant()==null)
+				mListNew.add(m);
+		}
+		System.out.println(mListNew.size());
+		return mListNew;
 	}
 	
 	public void loadManagers() {
@@ -94,10 +106,11 @@ public class ManagerDAO {
 	
 	public Manager updateManager(Manager manager) {
 		File file = new File(contextPath + "storage\\managers.txt");
-		
-		Manager oldManager = managers.get(manager.getId());
 		try {
-			manager.setRestaurant(oldManager.getRestaurant());
+			Manager oldManager = managers.get(manager.getId());
+			if(manager.getRestaurant() == null && oldManager != null) {
+					manager.setRestaurant(oldManager.getRestaurant());
+			}
 		} catch(NullPointerException ex) {}
 		
 		managers.put(manager.getId(), manager);
