@@ -52,5 +52,13 @@ public class RestaurantService {
 		System.out.println(r.getLocation().getCity());
 		return r;
 	}
+	
+	@GET
+	@Path("/sortedRestaurants")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Restaurant> sortedRestaurants() {
+		RestaurantDAO restaurantDAO = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
+		return restaurantDAO.sortRestaurants();
+	}
 
 }

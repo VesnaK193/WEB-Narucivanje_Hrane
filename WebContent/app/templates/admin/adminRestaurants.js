@@ -65,7 +65,6 @@ methods: {
 						role:"MANAGER"};
 				userRoute = "update";
 			}
-			console.log(userParam);
 			//First add user if username is unique, than add restaurant so we get restaurant with id as response
 			//and write it to manager
 			axios
