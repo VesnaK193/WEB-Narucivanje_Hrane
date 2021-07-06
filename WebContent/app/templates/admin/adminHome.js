@@ -5,10 +5,8 @@ Vue.component("admin-home", {
 	    }
 },
 template: ` 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 text-center"><h1>Admin Panel</h1></div>
-		</div>
+	<div>
+		<restaurants></restaurants>
 	</div>
  `
 })

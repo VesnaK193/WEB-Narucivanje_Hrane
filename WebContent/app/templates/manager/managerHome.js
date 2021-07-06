@@ -6,7 +6,7 @@ Vue.component("manager-home", {
 },
 template: ` 
 <div>
-	Home works
+	<restaurants></restaurants>
 </div>
  `
 })
