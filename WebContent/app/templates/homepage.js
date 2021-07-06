@@ -8,6 +8,7 @@ Vue.component("homepage", {
 <div>
 	<div class="min-cover">
 		<main-header></main-header> 
+		<restaurants></restaurants>
 	</div>
 	<main-footer></main-footer> 
 </div>

@@ -35,14 +35,17 @@ methods: {
 					this.errorMessage = "Username already exists!";
 				} else {
 					this.errorMessage = "";
+					s.id=response.data.id;
 					axios
-					.post("rest/manager/add", s);
-					axios
-					.get("rest/manager/allManagers")
-					.then(response => {
-						this.managers = response.data;
+					.post("rest/manager/add", s)
+					.then(responseAdd => {
+						axios
+						.get("rest/manager/allManagers")
+						.then(responseAllManagers => {
+							this.managers = responseAllManagers.data;
+							$("#addManagerModal").modal('hide');
+						});
 					});
-					$("#addManagerModal").modal('hide');
 				}
 			});
 		}
@@ -75,7 +78,7 @@ template: `
 					<td>{{manager.password}}</td>
 					<td>{{manager.gender}}</td>
 					<td>{{manager.birthday}}</td>
-					<td>{{manager.restaurant}}</td>
+					<td>{{manager.restaurant?manager.restaurant.name:""}}</td>
 				</tr>
 				</tbody>
 			</table>

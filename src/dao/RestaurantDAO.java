@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 import entities.Manager;
 import entities.Restaurant;
+import enums.RestaurantStatus;
 
 public class RestaurantDAO {
 	private Map<Integer, Restaurant> restaurants = new HashMap<>();
@@ -90,6 +92,26 @@ public class RestaurantDAO {
 			}
 		}
 		return restaurant;
+	}
+	
+	public Collection<Restaurant> sortRestaurants() {
+		Collection<Restaurant> allRestaurants = new ArrayList<Restaurant>();
+		allRestaurants = restaurants.values();
+		
+		Collection<Restaurant> sortedRestaurants = new ArrayList<Restaurant>();
+		
+		for(Restaurant r : allRestaurants) {
+			if(r.getRestaurantStatus() == RestaurantStatus.OPEN) {
+				sortedRestaurants.add(r);
+			}
+		}
+		
+		for(Restaurant r : allRestaurants) {
+			if(r.getRestaurantStatus()== RestaurantStatus.CLOSE) {
+				sortedRestaurants.add(r);
+			}
+		}
+		return sortedRestaurants;
 	}
 
 	private int calculateLastIndex() {
