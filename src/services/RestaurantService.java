@@ -63,6 +63,16 @@ public class RestaurantService {
 		return r;
 	}
 	
+	@POST
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Restaurant update(Restaurant r) {
+		RestaurantDAO restaurantDAO = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
+		restaurantDAO.updateRestaurant(r);
+		return r;
+	}
+	
 	@GET
 	@Path("/sortedRestaurants")
 	@Produces(MediaType.APPLICATION_JSON)

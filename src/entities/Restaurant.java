@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.File;
 import java.util.Collection;
 
 import enums.RestaurantStatus;

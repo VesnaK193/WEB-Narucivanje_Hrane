@@ -113,6 +113,30 @@ public class RestaurantDAO {
 		}
 		return sortedRestaurants;
 	}
+	
+	public Restaurant updateRestaurant(Restaurant restaurant) {
+		File file = new File(contextPath + "storage\\restaurants.txt");
+		restaurants.put(restaurant.getId(), restaurant);
+		
+		BufferedWriter writer = null;
+		try {
+		    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		    String json = ow.writeValueAsString(restaurants.values());
+
+		    writer = new BufferedWriter(new FileWriter(file));
+		    writer.write(json);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if ( writer != null ) {
+				try {
+					writer.close();
+				}
+				catch (Exception e) { }
+			}
+		}
+		return restaurant;
+	}
 
 	private int calculateLastIndex() {
 		int maxId = -1;

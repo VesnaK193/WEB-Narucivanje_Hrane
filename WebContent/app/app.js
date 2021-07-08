@@ -9,12 +9,15 @@ const AdminRestaurants = {template: '<admin-restaurants></admin-restaurants>'}
 const AdminCustomers = {template: '<admin-customers></admin-customers>'}
 const AdminProfile = {template: '<admin-profile></admin-profile>'}
 const RestaurantView = {template: '<restaurant-view></restaurant-view>'}
+const RestaurantViewWH = {template: '<restaurant-view-wh></restaurant-view-wh>'}
 const Customer = {template: '<customer></customer>'}
 const CustomerHome = {template: '<customer-home></customer-home>'}
 const CustomerProfile = {template: '<customer-profile></customer-profile>'}
 const Manager = {template: '<manager></manager>'}
 const ManagerHome = {template: '<manager-home></manager-home>'}
 const ManagerProfile = {template: '<manager-profile></manager-profile>'}
+const MyRestaurant = {template: '<my-restaurant></my-restaurant>'}
+const Products = {template: '<products></products>'}
 const Deliverer = {template: '<deliverer></deliverer>'}
 const DelivererHome = {template: '<deliverer-home></deliverer-home>'}
 const DelivererProfile = {template: '<deliverer-profile></deliverer-profile>'}
@@ -23,7 +26,7 @@ const PageNotFound = {template: '<div><h1 class="text-center mt-5">404! Page not
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
-		    { 
+		    {
 		    	path: '/', 
 		    	component: Homepage,
 		    	beforeEnter: (to, from, next) => {
@@ -34,6 +37,18 @@ const router = new VueRouter({
 		    		}
 		    	}
 		    },
+
+    	{
+    		path: '/restaurant/:id',
+    		component:RestaurantViewWH,
+	    	beforeEnter: (to, from, next) => {
+	    		if(isLogged()){
+	    			next("/"+getCurrentRole());
+	    		} else {
+	    			next();
+	    		}
+	    	}
+    	},
 	    { 
 	    	path: '/login', 
 	    	component: Login, 
@@ -108,6 +123,14 @@ const router = new VueRouter({
 	    		{
 	    			path: 'profile',
 	    			component: ManagerProfile
+	    		},
+	    		{
+	    			path: 'myRestaurant',
+	    			component: MyRestaurant
+	    		},
+	    		{
+	    			path: 'products',
+	    			component: Products
 	    		},
 	    		{
 	    			path: 'restaurant/:id',

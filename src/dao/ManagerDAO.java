@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 import entities.Deliverer;
 import entities.Manager;
+import entities.Product;
 import entities.User;
 
 public class ManagerDAO {
@@ -134,4 +135,6 @@ public class ManagerDAO {
 		}
 		return manager;
 	}
+	
+
 }
