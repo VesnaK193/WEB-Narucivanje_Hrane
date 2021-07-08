@@ -28,14 +28,13 @@ template: `
       <div class="col-md-7 order-md-2">
         <h2 class="featurette-heading">{{restaurant.name}} <br/><span class="text-muted">{{restaurant.type}}</span></h2>
         <p style="color:blue" class="lead">{{restaurant.restaurantStatus}}</p>
-        <p class="lead">{{restaurant.location.streetName}}</p>
-        <p class="lead">{{restaurant.location.zipCode}} {{restaurant.location.city}}</p>
+        <p class="lead" style="margin-bottom:.1rem; font-size:1.2rem">{{restaurant.location.streetName}}</p>
+        <p class="lead" style="margin-bottom:.1rem; font-size:1.2rem">{{restaurant.location.city}} {{restaurant.location.zipCode}}</p>
+        <p class="lead text-muted" style="font-size:1.2rem">{{restaurant.location.longitude}}, {{restaurant.location.latitude}}</p>
       </div>
       <div class="col-md-5 order-md-1">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-
+        <img v-bind:src="restaurant.logo" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" width="500" height="500">
       </div>
-      
     </div> 
     <hr class="featurette-divider">
     <ul class="nav nav-tabs" id="restaurantTab" role="tablist">

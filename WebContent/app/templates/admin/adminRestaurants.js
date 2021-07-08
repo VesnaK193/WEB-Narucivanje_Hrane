@@ -35,82 +35,85 @@ mounted() {
 	});
 },
 methods: {
-	checkForm: function async() {
-		const file = document.getElementById("modal_logo").files[0];
-		var img = document.getElementById("logo_img");
-	    let restaurant = this.modal_restaurant;
-	    var reader = new FileReader();
-	    reader.onload = function(event) {
-	    	base64 = event.target.result;
-	    	console.log(restaurant);
-	    };
-    	console.log(2);
-//		if(this.isFormValid()){
-//			console.log("form is valid");
-//			var userParam, userRoute;
-//			if(this.isButtonExpanded()){
-//				//NEW MANAGER
-//				this.newManager.birthday = new Date(this.newManager.birthday).getTime(); 
-//				userParam = {
-//						username: this.newManager.username, 
-//						password: this.newManager.password, 
-//						firstname: this.newManager.firstname, 
-//						lastname: this.newManager.lastname, 
-//						gender: this.newManager.gender, 
-//						birthday: this.newManager.birthday, 
-//						role:"MANAGER"};
-//				userRoute = "register";
-//				
-//			} else {
-//				//SELECTED
-//				userParam = {
-//						id: this.selectedManager.id,
-//						username: this.selectedManager.username, 
-//						password: this.selectedManager.password, 
-//						firstname: this.selectedManager.firstname, 
-//						lastname: this.selectedManager.lastname, 
-//						gender: this.selectedManager.gender, 
-//						birthday: this.selectedManager.birthday, 
-//						role:"MANAGER"};
-//				userRoute = "update";
-//			}
-//			//First add user if username is unique, than add restaurant so we get restaurant with id as response
-//			//and write it to manager
-//			axios
-//			.post("rest/user/" + userRoute, userParam)
-//			.then(userResponse => {
-//				if(userResponse.data==""){
-//					this.errorMessage = "Username already exists!";
-//				} else {
-//					this.errorMessage = "";
-//					var restaurantParam = this.modal_restaurant;
-//					//Add restaurant, response Restaurant with ID
-//					axios
-//					.post("rest/restaurant/add", restaurantParam)
-//					.then (restaurantResponse => {
-//						if(restaurantResponse.data != "") {
-//							var managerParam = {
-//								id:userResponse.data.id,
-//								username: userResponse.data.username, 
-//								password: userResponse.data.password, 
-//								firstname: userResponse.data.firstname, 
-//								lastname: userResponse.data.lastname, 
-//								gender: userResponse.data.gender, 
-//								birthday: userResponse.data.birthday, 
-//								role:"MANAGER",
-//								restaurant:restaurantResponse.data,
-//							};
-//							console.log(managerParam);
-//							axios
-//							.post("rest/manager/update", managerParam)
-//							.then(managerResponse => {
-//								this.restaurants.push(this.modal_restaurant);
-//							});
-//						}
-//					});
-//				}
-//			});
-//		}
+	test: function(){
+		console.log("test");
+	},
+	checkForm: function() {
+		if(this.isFormValid()){
+			let vue= this;
+			
+			const file = document.getElementById("modal_logo").files[0];
+			
+		    var reader = new FileReader();
+		    reader.onload = function(event) {
+				vue.modal_restaurant.logo=event.target.result;
+				
+				var userParam, userRoute;
+				if(vue.isButtonExpanded()){
+					//NEW MANAGER
+					vue.newManager.birthday = new Date(vue.newManager.birthday).getTime(); 
+					userParam = {
+							username: vue.newManager.username, 
+							password: vue.newManager.password, 
+							firstname: vue.newManager.firstname, 
+							lastname: vue.newManager.lastname, 
+							gender: vue.newManager.gender, 
+							birthday: vue.newManager.birthday, 
+							role:"MANAGER"};
+					userRoute = "register";
+					
+				} else {
+					//SELECTED
+					userParam = {
+							id: vue.selectedManager.id,
+							username: vue.selectedManager.username, 
+							password: vue.selectedManager.password, 
+							firstname: vue.selectedManager.firstname, 
+							lastname: vue.selectedManager.lastname, 
+							gender: vue.selectedManager.gender, 
+							birthday: vue.selectedManager.birthday, 
+							role:"MANAGER"};
+					userRoute = "update";
+				}
+				//First add user if username is unique, than add restaurant so we get restaurant with id as response
+				//and write it to manager
+				axios
+				.post("rest/user/" + userRoute, userParam)
+				.then(userResponse => {
+					if(userResponse.data==""){
+						vue.errorMessage = "Username already exists!";
+					} else {
+						vue.errorMessage = "";
+						var restaurantParam = vue.modal_restaurant;
+						//Add restaurant, response Restaurant with ID
+						axios
+						.post("rest/restaurant/add", restaurantParam)
+						.then (restaurantResponse => {
+							if(restaurantResponse.data != "") {
+								var managerParam = {
+									id:userResponse.data.id,
+									username: userResponse.data.username, 
+									password: userResponse.data.password, 
+									firstname: userResponse.data.firstname, 
+									lastname: userResponse.data.lastname, 
+									gender: userResponse.data.gender, 
+									birthday: userResponse.data.birthday, 
+									role:"MANAGER",
+									restaurant:restaurantResponse.data,
+								};
+								console.log(managerParam);
+								axios
+								.post("rest/manager/update", managerParam)
+								.then(managerResponse => {
+									vue.restaurants.push(vue.modal_restaurant);
+								});
+							}
+						});
+					}
+				});
+		    };
+		    reader.readAsDataURL(file);
+		}
 	},
 	isFormValid: function() {
 		//DODATI KAD SE LOGO IZMENI
@@ -171,7 +174,9 @@ template: `
 					<td>{{restaurant.location.longitude}}</td>
 					<td>{{restaurant.location.latitude}}</td>
 					<td>{{restaurant.location.streetName}}, {{restaurant.location.city}} {{restaurant.location.zipCode}}</td>
-					<td>{{restaurant.logo}}</td>
+					<td>
+			    		<img v-if="restaurant.logo!=''" v-bind:src="restaurant.logo" alt="" width="40" height="40">
+			    	</td>
 				</tr>
 				</tbody>
 			</table>

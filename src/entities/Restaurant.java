@@ -12,7 +12,7 @@ public class Restaurant {
 	private Collection<Product> products;
 	private RestaurantStatus restaurantStatus;
 	private Location location;
-	private File logo;
+	private String logo;
 	
 	public Restaurant () {
 		
@@ -66,11 +66,11 @@ public class Restaurant {
 		this.location = location;
 	}
 
-	public File getLogo() {
+	public String getLogo() {
 		return logo;
 	}
 
-	public void setLogo(File logo) {
+	public void setLogo(String logo) {
 		this.logo = logo;
 	}
 
