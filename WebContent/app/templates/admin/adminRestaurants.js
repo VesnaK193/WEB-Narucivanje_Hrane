@@ -12,7 +12,7 @@ Vue.component("admin-restaurants", {
 		    		city: "", 
 		    		zipCode:"", 
 		    	},
-	    		logo:null, 
+	    		logo:"", 
 	    	},
     		selectedManager: {id:"",username:"",firstname:"",lastname:"",gender:"",password:"",birthday:null},
     		newManager: {username:"",firstname:"",lastname:"",gender:"",password:"",birthday:null},
@@ -35,73 +35,82 @@ mounted() {
 	});
 },
 methods: {
-	checkForm: function () {
-		if(this.isFormValid()){
-			console.log("form is valid");
-			var userParam, userRoute;
-			if(this.isButtonExpanded()){
-				//NEW MANAGER
-				this.newManager.birthday = new Date(this.newManager.birthday).getTime(); 
-				userParam = {
-						username: this.newManager.username, 
-						password: this.newManager.password, 
-						firstname: this.newManager.firstname, 
-						lastname: this.newManager.lastname, 
-						gender: this.newManager.gender, 
-						birthday: this.newManager.birthday, 
-						role:"MANAGER"};
-				userRoute = "register";
-				
-			} else {
-				//SELECTED
-				userParam = {
-						id: this.selectedManager.id,
-						username: this.selectedManager.username, 
-						password: this.selectedManager.password, 
-						firstname: this.selectedManager.firstname, 
-						lastname: this.selectedManager.lastname, 
-						gender: this.selectedManager.gender, 
-						birthday: this.selectedManager.birthday, 
-						role:"MANAGER"};
-				userRoute = "update";
-			}
-			//First add user if username is unique, than add restaurant so we get restaurant with id as response
-			//and write it to manager
-			axios
-			.post("rest/user/" + userRoute, userParam)
-			.then(userResponse => {
-				if(userResponse.data==""){
-					this.errorMessage = "Username already exists!";
-				} else {
-					this.errorMessage = "";
-					var restaurantParam = this.modal_restaurant;
-					//Add restaurant, response Restaurant with ID
-					axios
-					.post("rest/restaurant/add", restaurantParam)
-					.then (restaurantResponse => {
-						if(restaurantResponse.data != "") {
-							var managerParam = {
-								id:userResponse.data.id,
-								username: userResponse.data.username, 
-								password: userResponse.data.password, 
-								firstname: userResponse.data.firstname, 
-								lastname: userResponse.data.lastname, 
-								gender: userResponse.data.gender, 
-								birthday: userResponse.data.birthday, 
-								role:"MANAGER",
-								restaurant:restaurantResponse.data,
-							};
-							console.log(managerParam);
-							axios
-							.post("rest/manager/update", managerParam)
-							.then(managerResponse => {
-								this.restaurants.push(this.modal_restaurant);
-							});
-						}
-					});
-				}
-			});
-		}
+	checkForm: function async() {
+		const file = document.getElementById("modal_logo").files[0];
+		var img = document.getElementById("logo_img");
+	    let restaurant = this.modal_restaurant;
+	    var reader = new FileReader();
+	    reader.onload = function(event) {
+	    	base64 = event.target.result;
+	    	console.log(restaurant);
+	    };
+    	console.log(2);
+//		if(this.isFormValid()){
+//			console.log("form is valid");
+//			var userParam, userRoute;
+//			if(this.isButtonExpanded()){
+//				//NEW MANAGER
+//				this.newManager.birthday = new Date(this.newManager.birthday).getTime(); 
+//				userParam = {
+//						username: this.newManager.username, 
+//						password: this.newManager.password, 
+//						firstname: this.newManager.firstname, 
+//						lastname: this.newManager.lastname, 
+//						gender: this.newManager.gender, 
+//						birthday: this.newManager.birthday, 
+//						role:"MANAGER"};
+//				userRoute = "register";
+//				
+//			} else {
+//				//SELECTED
+//				userParam = {
+//						id: this.selectedManager.id,
+//						username: this.selectedManager.username, 
+//						password: this.selectedManager.password, 
+//						firstname: this.selectedManager.firstname, 
+//						lastname: this.selectedManager.lastname, 
+//						gender: this.selectedManager.gender, 
+//						birthday: this.selectedManager.birthday, 
+//						role:"MANAGER"};
+//				userRoute = "update";
+//			}
+//			//First add user if username is unique, than add restaurant so we get restaurant with id as response
+//			//and write it to manager
+//			axios
+//			.post("rest/user/" + userRoute, userParam)
+//			.then(userResponse => {
+//				if(userResponse.data==""){
+//					this.errorMessage = "Username already exists!";
+//				} else {
+//					this.errorMessage = "";
+//					var restaurantParam = this.modal_restaurant;
+//					//Add restaurant, response Restaurant with ID
+//					axios
+//					.post("rest/restaurant/add", restaurantParam)
+//					.then (restaurantResponse => {
+//						if(restaurantResponse.data != "") {
+//							var managerParam = {
+//								id:userResponse.data.id,
+//								username: userResponse.data.username, 
+//								password: userResponse.data.password, 
+//								firstname: userResponse.data.firstname, 
+//								lastname: userResponse.data.lastname, 
+//								gender: userResponse.data.gender, 
+//								birthday: userResponse.data.birthday, 
+//								role:"MANAGER",
+//								restaurant:restaurantResponse.data,
+//							};
+//							console.log(managerParam);
+//							axios
+//							.post("rest/manager/update", managerParam)
+//							.then(managerResponse => {
+//								this.restaurants.push(this.modal_restaurant);
+//							});
+//						}
+//					});
+//				}
+//			});
+//		}
 	},
 	isFormValid: function() {
 		//DODATI KAD SE LOGO IZMENI
@@ -220,6 +229,12 @@ template: `
 			      <input type="text" class="form-control" name="zipCode" v-model="modal_restaurant.location.zipCode" placeholder="Zip code">
 			      <label for="floatingInput">Zip code</label>
 			    </div>
+			    <!-- LOGO FIELD -->
+			    <img style="display:none" id="logo_img" src="" alt="" width="107" height="98">
+				<div class="mb-2">
+				  <label for="modal_logo" class="form-label">Logo</label>
+				  <input onchange="onImangeChange(this)"  class="form-control form-control-lg" id="modal_logo" type="file">
+				</div>
 			    <!-- MANAGER FIELD -->
 			    		<div class="form-floating mb-2">
 				    		<select v-if="managers.length>0" class="form-control" name="manager" v-model="selectedManager" placeholder="Manager">
@@ -288,3 +303,11 @@ template: `
 	</div>
  `
 })
+
+function onImangeChange(event){
+	const file = document.getElementById("modal_logo").files[0];
+	var url = URL.createObjectURL(file);
+	var img = document.getElementById("logo_img");
+	img.src = url;
+	img.style.display = "block";
+}

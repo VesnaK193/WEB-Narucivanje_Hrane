@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.File;
 import java.util.Collection;
 
 import enums.RestaurantStatus;
@@ -11,7 +12,7 @@ public class Restaurant {
 	private Collection<Product> products;
 	private RestaurantStatus restaurantStatus;
 	private Location location;
-	private String logo;
+	private File logo;
 	
 	public Restaurant () {
 		
@@ -65,11 +66,11 @@ public class Restaurant {
 		this.location = location;
 	}
 
-	public String getLogo() {
+	public File getLogo() {
 		return logo;
 	}
 
-	public void setLogo(String logo) {
+	public void setLogo(File logo) {
 		this.logo = logo;
 	}
 
