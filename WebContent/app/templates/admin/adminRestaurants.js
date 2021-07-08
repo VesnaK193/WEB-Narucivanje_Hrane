@@ -232,13 +232,13 @@ template: `
 			    		</div>
 			    <p>
 					<div class="input-group mb-3">
-						<button id="newManagerButton" class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+						<button id="newManagerButton" class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewManager" aria-expanded="false" aria-controls="collapseNewManager">
 						  New manager
 						</button>
 					</div>
 				</p>
 				<!-- NEW MANAGER COLLAPSE -->
-				<div class="collapse" id="collapseExample">
+				<div class="collapse" id="collapseNewManager">
 				  	<div class="card card-body">
 						<!-- USERNAME FIELD -->
 					    <div class="form-floating mb-2">

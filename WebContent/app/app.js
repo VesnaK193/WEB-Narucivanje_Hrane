@@ -8,6 +8,7 @@ const AdminDeliverers = {template: '<admin-deliverers></admin-deliverers>'}
 const AdminRestaurants = {template: '<admin-restaurants></admin-restaurants>'}
 const AdminCustomers = {template: '<admin-customers></admin-customers>'}
 const AdminProfile = {template: '<admin-profile></admin-profile>'}
+const RestaurantView = {template: '<restaurant-view></restaurant-view>'}
 const Customer = {template: '<customer></customer>'}
 const CustomerHome = {template: '<customer-home></customer-home>'}
 const CustomerProfile = {template: '<customer-profile></customer-profile>'}
@@ -83,6 +84,10 @@ const router = new VueRouter({
 	    			path: 'customers',
 	    			component:AdminCustomers,
 	    		},
+	    		{
+	    			path: 'restaurant/:id',
+	    			component:RestaurantView,
+	    		},
 	    	],
 	    	beforeEnter: (to, from, next) => {
 	    		if(loggedAs("ADMIN")){
@@ -103,7 +108,11 @@ const router = new VueRouter({
 	    		{
 	    			path: 'profile',
 	    			component: ManagerProfile
-	    		}
+	    		},
+	    		{
+	    			path: 'restaurant/:id',
+	    			component:RestaurantView,
+	    		},
 	    	],
 	    	beforeEnter: (to, from, next) => {
 	    		if(loggedAs("MANAGER")){
@@ -128,7 +137,11 @@ const router = new VueRouter({
 	    		{
 	    			path: 'home',
 	    			component: CustomerHome
-	    		}
+	    		},
+	    		{
+	    			path: 'restaurant/:id',
+	    			component:RestaurantView,
+	    		},
 	    	],
 	    	beforeEnter: (to, from, next) => {
 	    		if(loggedAs("CUSTOMER")){
@@ -153,7 +166,11 @@ const router = new VueRouter({
 	    		{
 	    			path: 'home',
 	    			component: DelivererHome
-	    		}
+	    		},
+	    		{
+	    			path: 'restaurant/:id',
+	    			component:RestaurantView,
+	    		},
 	    	],
 	    	beforeEnter: (to, from, next) => {
 	    		if(loggedAs("DELIVERER")){

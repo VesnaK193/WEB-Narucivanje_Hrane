@@ -43,6 +43,16 @@ public class RestaurantService {
 	}
 	
 	@POST
+	@Path("/getRestaurantById")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Restaurant restourantView(Restaurant r) {
+		RestaurantDAO restaurantDAO = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
+		return restaurantDAO.findById(r.getId());
+		
+	}
+	
+	@POST
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)

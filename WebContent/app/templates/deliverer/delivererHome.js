@@ -6,7 +6,7 @@ Vue.component("deliverer-home", {
 },
 template: ` 
 <div>
-	Home works
+	<restaurants></restaurants>
 </div>
  `
 })
