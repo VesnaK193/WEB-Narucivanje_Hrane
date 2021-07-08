@@ -39,86 +39,79 @@ methods: {
 		console.log("test");
 	},
 	checkForm: function() {
-		if(this.isFormValid()){
-			let vue= this;
+		if(this.isFormValid("addRestaurantModal")){
+			this.modal_restaurant.logo=document.querySelector("#addRestaurantModal #logo_img").src;
 			
-			const file = document.getElementById("modal_logo").files[0];
-			
-		    var reader = new FileReader();
-		    reader.onload = function(event) {
-				vue.modal_restaurant.logo=event.target.result;
+			var userParam, userRoute;
+			if(this.isButtonExpanded()){
+				//NEW MANAGER
+				this.newManager.birthday = new Date(this.newManager.birthday).getTime(); 
+				userParam = {
+						username: this.newManager.username, 
+						password: this.newManager.password, 
+						firstname: this.newManager.firstname, 
+						lastname: this.newManager.lastname, 
+						gender: this.newManager.gender, 
+						birthday: this.newManager.birthday, 
+						role:"MANAGER"};
+				userRoute = "register";
 				
-				var userParam, userRoute;
-				if(vue.isButtonExpanded()){
-					//NEW MANAGER
-					vue.newManager.birthday = new Date(vue.newManager.birthday).getTime(); 
-					userParam = {
-							username: vue.newManager.username, 
-							password: vue.newManager.password, 
-							firstname: vue.newManager.firstname, 
-							lastname: vue.newManager.lastname, 
-							gender: vue.newManager.gender, 
-							birthday: vue.newManager.birthday, 
-							role:"MANAGER"};
-					userRoute = "register";
-					
+			} else {
+				//SELECTED
+				userParam = {
+						id: this.selectedManager.id,
+						username: this.selectedManager.username, 
+						password: this.selectedManager.password, 
+						firstname: this.selectedManager.firstname, 
+						lastname: this.selectedManager.lastname, 
+						gender: this.selectedManager.gender, 
+						birthday: this.selectedManager.birthday, 
+						role:"MANAGER"};
+				userRoute = "update";
+			}
+			//First add user if username is unique, than add restaurant so we get restaurant with id as response
+			//and write it to manager
+			axios
+			.post("rest/user/" + userRoute, userParam)
+			.then(userResponse => {
+				if(userResponse.data==""){
+					this.errorMessage = "Username already exists!";
 				} else {
-					//SELECTED
-					userParam = {
-							id: vue.selectedManager.id,
-							username: vue.selectedManager.username, 
-							password: vue.selectedManager.password, 
-							firstname: vue.selectedManager.firstname, 
-							lastname: vue.selectedManager.lastname, 
-							gender: vue.selectedManager.gender, 
-							birthday: vue.selectedManager.birthday, 
-							role:"MANAGER"};
-					userRoute = "update";
+					this.errorMessage = "";
+					var restaurantParam = this.modal_restaurant;
+					//Add restaurant, response Restaurant with ID
+					axios
+					.post("rest/restaurant/add", restaurantParam)
+					.then (restaurantResponse => {
+						if(restaurantResponse.data != "") {
+							var managerParam = {
+								id:userResponse.data.id,
+								username: userResponse.data.username, 
+								password: userResponse.data.password, 
+								firstname: userResponse.data.firstname, 
+								lastname: userResponse.data.lastname, 
+								gender: userResponse.data.gender, 
+								birthday: userResponse.data.birthday, 
+								role:"MANAGER",
+								restaurant:restaurantResponse.data,
+							};
+							console.log(managerParam);
+							axios
+							.post("rest/manager/update", managerParam)
+							.then(managerResponse => {
+								this.restaurants.push(this.modal_restaurant);
+								$("#addRestaurantModal").modal('hide');
+							});
+						}
+					});
 				}
-				//First add user if username is unique, than add restaurant so we get restaurant with id as response
-				//and write it to manager
-				axios
-				.post("rest/user/" + userRoute, userParam)
-				.then(userResponse => {
-					if(userResponse.data==""){
-						vue.errorMessage = "Username already exists!";
-					} else {
-						vue.errorMessage = "";
-						var restaurantParam = vue.modal_restaurant;
-						//Add restaurant, response Restaurant with ID
-						axios
-						.post("rest/restaurant/add", restaurantParam)
-						.then (restaurantResponse => {
-							if(restaurantResponse.data != "") {
-								var managerParam = {
-									id:userResponse.data.id,
-									username: userResponse.data.username, 
-									password: userResponse.data.password, 
-									firstname: userResponse.data.firstname, 
-									lastname: userResponse.data.lastname, 
-									gender: userResponse.data.gender, 
-									birthday: userResponse.data.birthday, 
-									role:"MANAGER",
-									restaurant:restaurantResponse.data,
-								};
-								console.log(managerParam);
-								axios
-								.post("rest/manager/update", managerParam)
-								.then(managerResponse => {
-									vue.restaurants.push(vue.modal_restaurant);
-								});
-							}
-						});
-					}
-				});
-		    };
-		    reader.readAsDataURL(file);
+			});
 		}
 	},
-	isFormValid: function() {
+	isFormValid: function(modalId) {
 		//DODATI KAD SE LOGO IZMENI
 		if(this.modal_restaurant.name != "" && this.modal_restaurant.type != "" && this.modal_restaurant.restaurantStatus != "" && this.modal_restaurant.location.longitude != "" 
-			|| this.modal_restaurant.location.latitude != "" && this.modal_restaurant.location.streetName != "" && this.modal_restaurant.location.city != "" && this.modal_restaurant.location.zipCode != "") {
+			&& this.modal_restaurant.location.latitude != "" && this.modal_restaurant.location.streetName != "" && this.modal_restaurant.location.city != "" && this.modal_restaurant.location.zipCode != "" && document.querySelector("#" + modalId + " #logo_img").alt != "empty") {
 			//if new manager form is expanded, new manager fields will be used
 			//if not, selected manager will be used
 			if(this.isButtonExpanded()){
@@ -143,7 +136,18 @@ methods: {
 		if(btn=="true")
 			return true;
 		return false;
-	}
+	},
+	onImageChange: function(modalId) {
+		const file = document.querySelector("#" + modalId + " #modal_logo").files[0];
+		const img = document.querySelector("#" + modalId + " #logo_img");
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			img.src = event.target.result
+			img.alt = "Full";
+			img.style.display = "block";
+		}
+		reader.readAsDataURL(file);
+	},
 
 },
 template: ` 
@@ -235,10 +239,10 @@ template: `
 			      <label for="floatingInput">Zip code</label>
 			    </div>
 			    <!-- LOGO FIELD -->
-			    <img style="display:none" id="logo_img" src="" alt="" width="107" height="98">
+			    <img style="display:none" id="logo_img" src="" alt="empty" width="107" height="98">
 				<div class="mb-2">
 				  <label for="modal_logo" class="form-label">Logo</label>
-				  <input onchange="onImangeChange(this)"  class="form-control form-control-lg" id="modal_logo" type="file">
+				  <input @change="onImageChange('addRestaurantModal')" class="form-control form-control-lg" id="modal_logo" type="file">
 				</div>
 			    <!-- MANAGER FIELD -->
 			    		<div class="form-floating mb-2">
@@ -308,11 +312,3 @@ template: `
 	</div>
  `
 })
-
-function onImangeChange(event){
-	const file = document.getElementById("modal_logo").files[0];
-	var url = URL.createObjectURL(file);
-	var img = document.getElementById("logo_img");
-	img.src = url;
-	img.style.display = "block";
-}
