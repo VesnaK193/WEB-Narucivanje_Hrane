@@ -51,7 +51,6 @@ public class RestaurantDAO {
 			File file = new File(contextPath + "storage\\restaurants.txt");
 			reader = new BufferedReader(new FileReader(file));
 			String json = reader.lines().collect(Collectors.joining());
-			System.out.println(json);
 			Collection<Restaurant> rList = new ObjectMapper().readValue(json, new TypeReference<List<Restaurant>>(){});
 			
 			for(Restaurant r : rList) {

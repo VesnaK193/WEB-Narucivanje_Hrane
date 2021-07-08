@@ -53,7 +53,6 @@ public class ManagerDAO {
 			if(m.getRestaurant()==null)
 				mListNew.add(m);
 		}
-		System.out.println(mListNew.size());
 		return mListNew;
 	}
 	
@@ -63,7 +62,6 @@ public class ManagerDAO {
 			File file = new File(contextPath + "storage\\managers.txt");
 			reader = new BufferedReader(new FileReader(file));
 			String json = reader.lines().collect(Collectors.joining());
-			System.out.println(json);
 			Collection<Manager> mList = new ObjectMapper().readValue(json, new TypeReference<List<Manager>>(){});
 			
 			for(Manager m : mList) {
