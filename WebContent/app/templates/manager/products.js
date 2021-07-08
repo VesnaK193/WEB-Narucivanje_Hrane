@@ -49,35 +49,44 @@ Vue.component("products", {
 	methods: {
 		checkForm: function() {
 			if(this.isFormValid()) {
-				if(this.isProductUnique()) {
-					this.errorMessage = "";
-					let prodList =  this.manager.restaurant.products?this.manager.restaurant.products:[];
-					if(prodList.length>0) 
-					{
-						this.manager.restaurant.products.push(this.product);
-					} else {
-						this.manager.restaurant.products = [this.product];
-					}
-					
-					axios
-					.post("rest/manager/update", this.manager)
-					.then(response => {
+				let vue= this;
+				const file = document.getElementById("img_file").files[0];
+	
+				var reader = new FileReader();
+				reader.onload = function(event) {
+					if(vue.isProductUnique()) {
+						vue.errorMessage = "";
+						let prodList =  vue.manager.restaurant.products?vue.manager.restaurant.products:[];
+						vue.product.image=event.target.result;
+						if(prodList.length>0) 
+						{
+							vue.manager.restaurant.products.push(vue.product);
+						} else {
+							vue.manager.restaurant.products = [vue.product];
+						}
+						
 						axios
-						.post("rest/restaurant/update", this.manager.restaurant)
-						.then(response1 => {
-							console.log("jupiii");
+						.post("rest/manager/update", vue.manager)
+						.then(response => {
+							axios
+							.post("rest/restaurant/update", vue.manager.restaurant)
+							.then(response1 => {
+								$("#addProductModal").modal('hide');
+							})
 						})
-					})
-				} else {
-					this.errorMessage = "Product name already exists!";
+					} else {
+						vue.errorMessage = "Product name already exists!";
+					}
 				}
+				reader.readAsDataURL(file);
+				
 				
 				
 			}
 		
 		},
 		isFormValid: function() {
-			if(this.product.name == "" || this.product.price == "" || this.product.type == "") {
+			if(this.product.name == "" || this.product.price == "" || this.product.type == "" || document.getElementById("img_file").value == "") {
 				this.errorMessage = "All fields are required!";
 				return false;
 			} 
@@ -96,13 +105,51 @@ Vue.component("products", {
 				});
 			} 
 			return isValid;
+		},
+		
+		onImageChange: function() {
+			const file = document.getElementById("img_file").files[0];
+			var url = URL.createObjectURL(file);
+			var img = document.getElementById("product_img");
+			img.src = url;
+			img.style.display = "block";
+		},
+		
+		resetForm: function() {
+			this.product= {
+				name: "",
+				price: "",
+				productType: "",
+				quantity: "",
+				description: "",
+				image: "",
+			}
+			this.errorMessage ="";
+			var file = document.getElementById("img_file");
+			file.files[0] = null;
+			file.value="";
+			var img = document.getElementById("product_img");
+			img.src = "";
+			img.style.display = "none";
+		},
+		
+		priceValidation: function(event) {
+			const searchRegExp = /[^0-9]/g;
+			let v = this.product.price.replace(searchRegExp, "");
+			this.product.price = v;
+		},
+		
+		quantityValidation: function(event) {
+			const searchRegExp = /[^0-9]/g;
+			let v = this.product.quantity.replace(searchRegExp, "");
+			this.product.quantity = v;
 		}
 	
 	},
 	template: `
 	<div>
 	<h2 class="text-center py-5"> PRODUCTS </h2>
-	<button type="button" style="font-weight: 700;" class="btn btn-primary mb-3 offset-md-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addProductModal">
+	<button type="button" style="font-weight: 700;" class="btn btn-primary mb-3 offset-md-10 col-md-2" v-on:keyup="resetForm" data-bs-toggle="modal" data-bs-target="#addProductModal">
 			  Add
 			</button>
 	<table class="table table-bordered bg-light mb-5" style="border-color:#607d8b" >
@@ -123,7 +170,7 @@ Vue.component("products", {
 						<td>{{product.productType}}</td>
 						<td>{{product.quantity}}</td>
 						<td>{{product.description}}</td>
-						<td>{{product.image}}</td>
+						<td><img v-if="product.image!=''" v-bind:src="product.image" alt="" width="40" height="40"></td>
 					</tr>
 				</tbody>
 				</table>
@@ -142,7 +189,7 @@ Vue.component("products", {
 			      <label for="floatingInput">Name</label>
 			    </div>
 			    <div class="form-floating mb-2">
-			      <input type="text" class="form-control" name="price" v-model="product.price" placeholder="Price">
+			      <input type="text" class="form-control" name="price" v-model="product.price" @change="priceValidation" placeholder="Price">
 			      <label for="floatingInput">Price</label>
 			    </div>
 			    <div class="form-floating mb-2">
@@ -153,13 +200,19 @@ Vue.component("products", {
 			     <label for="floatingInput">Type</label>
 			     </div>
 			    <div class="form-floating mb-2">
-			      <input type="text" class="form-control" name="Quantity" v-model="product.quantity" placeholder="Quantity">
+			      <input type="text" class="form-control" name="Quantity" v-model="product.quantity" @change="quantityValidation" placeholder="Quantity">
 			      <label for="floatingInput">Quantity</label>
 			    </div>
 			    <div class="form-floating mb-2">
 			      <input type="text" class="form-control" name="description" v-model="product.description" placeholder="Description">
 			      <label for="floatingInput">Description</label>
 			    </div>
+			     <!-- LOGO FIELD -->
+			    <img style="display:none" id="product_img" src="" alt="" width="107" height="98">
+				<div class="mb-2">
+				  <label for="img_file" class="form-label">Image</label>
+				  <input @change="onImageChange()"  class="form-control form-control-lg" id="img_file" type="file">
+				</div>
 		      <!--   MODAL FORM  END  -->
 	    		<span class="errorMessage mr-3">{{errorMessage}}</span>
 		      </div>
