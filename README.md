@@ -1,2 +1,3 @@
-Putanja do servise poèinje sa /rest
-Servise stavljati u "services" paket
+Vesna Karaklic RA193/2016
+Predmet: Web projektovanje
+Projekat: Narucivanje hrane

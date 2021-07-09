@@ -148,14 +148,48 @@ methods: {
 		}
 		reader.readAsDataURL(file);
 	},
+	
+	resetForm: function() {
+		this.modal_restaurant= {
+    		name: "", 
+    		type: "", 
+    		restaurantStatus:"",
+    		location: {
+    			longitude:"", 
+	    		latitude:"",
+	    		streetName:"", 
+	    		city: "", 
+	    		zipCode:"", 
+	    	},
+    		logo:"", 
+    	}
+		this.errorMessage ="";
+	},
+	longitudeValidation: function(event) {
+		const searchRegExp = /[^0-9]/g;
+		let v = this.modal_restaurant.location.longitude.replace(searchRegExp, "");
+		this.modal_restaurant.location.longitude = v;
+	},
+	latitudeValidation: function(event) {
+		const searchRegExp = /[^0-9]/g;
+		let v = this.modal_restaurant.location.latitude.replace(searchRegExp, "");
+		this.modal_restaurant.location.latitude = v;
+		console.log(this.modal_restaurant.location.latitude);
+	},
+	zipCodeValidation: function(event) {
+		const searchRegExp = /[^0-9]/g;
+		let v = this.modal_restaurant.location.zipCode.replace(searchRegExp, "");
+		this.modal_restaurant.location.zipCode = v;
+		console.log(this.modal_restaurant.location.zipCode);
+	},
 
 },
 template: ` 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12 text-center mb-3 mt-3"><h1>Restaurants</h1></div>
+			<div class="col-md-12 text-center my-3"><h1>Restaurants</h1></div>
 			<!-- Button trigger add modal -->
-			<button type="button" style="font-weight: 700;" class="btn btn-primary mb-3 offset-md-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addRestaurantModal">
+			<button type="button" style="font-weight: 700;" @click="resetForm" class="btn btn-primary mb-3 offset-md-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addRestaurantModal">
 			  Add
 			</button>
 			<table class="table table-bordered bg-light" style="border-color:#607d8b">
@@ -215,12 +249,12 @@ template: `
 			     </div>
 			    <!-- LONGITUDE FIELD -->
 			    <div class="form-floating mb-2">
-			      <input type="text" class="form-control" name="longitude" v-model="modal_restaurant.location.longitude" placeholder="Longitude">
+			      <input type="text" class="form-control" name="longitude" v-model="modal_restaurant.location.longitude" @change="longitudeValidation" placeholder="Longitude">
 			      <label for="floatingInput">Longitude</label>
 			    </div>
 			    <!-- LATITUDE FIELD -->
 			    <div class="form-floating mb-2">
-			      <input type="text" class="form-control" name="latitude" v-model="modal_restaurant.location.latitude" placeholder="Latitude">
+			      <input type="text" class="form-control" name="latitude" v-model="modal_restaurant.location.latitude" @change="latitudeValidation" placeholder="Latitude">
 			      <label for="floatingInput">Latitude</label>
 			    </div>
 			    <!-- STREET FIELD -->
@@ -235,7 +269,7 @@ template: `
 			    </div>
 			    <!-- ZIP FIELD -->
 			    <div class="form-floating mb-2">
-			      <input type="text" class="form-control" name="zipCode" v-model="modal_restaurant.location.zipCode" placeholder="Zip code">
+			      <input type="text" class="form-control" name="zipCode" v-model="modal_restaurant.location.zipCode" @change="zipCodeValidation" placeholder="Zip code">
 			      <label for="floatingInput">Zip code</label>
 			    </div>
 			    <!-- LOGO FIELD -->

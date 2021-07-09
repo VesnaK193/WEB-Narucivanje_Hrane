@@ -52,8 +52,31 @@ template: `
 	  </li>
 	</ul>
 	<div class="tab-content" id="restaurantTabContent">
-	  <div class="tab-pane fade show active" id="products" role="tabpanel" aria-labelledby="producst-tab">Products</div>
-	  <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">Comments</div>
+	<div class="tab-pane fade active show products-container" id="products" role="tabpanel" aria-labelledby="products-tab">
+	  <table>
+	  	<thead>
+			<tr style="border-bottom: 1px solid rgba(0,0,0,10%)">
+				<th></th>
+				<th class="px-5 py-1">Name</th>
+				<th class="px-5 py-1">Description</th>
+				<th class="px-5 py-1">Price</th>
+				<th class="px-5 py-1"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr style="border-bottom: 1px solid rgba(0,0,0,10%)" class="py-2" v-for="product in restaurant.products">
+	  			<td class="text-center px-3 py-2"><img v-if="product.image!=''" v-bind:src="product.image" alt="" width="40" height="40"></td>
+				<td class="px-5 py-2">{{product.name}}</td>
+				<td class="px-5 py-2">{{product.description}}</td>
+				<td class="px-5 py-2">{{product.price}}</td>
+				<td class="px-3 w-100 py-1" style="text-align:right">
+					<button type="button" class="btn btn-secondary">Add to cart</button>
+				</td>
+			</tr>
+		</tbody>
+	  </table>
+	</div>
+	  <div class="tab-pane fade products-container" id="comments" role="tabpanel" aria-labelledby="comments-tab">Comments</div>
 	</div>
  </div>
  `

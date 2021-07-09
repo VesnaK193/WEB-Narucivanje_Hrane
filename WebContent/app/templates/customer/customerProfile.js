@@ -46,25 +46,22 @@ methods: {
 
 },
 template: ` 
-<div class="album py-5">
+<div class="album py-3">
     <div class="container">
-
+	  <div class="col-md-12 text-center mb-3"><h1>Profile</h1></div>
       <div class="row">
         <div class="col">
           <div class="card shadow-sm">
             <div class="card-body">
-              <p class="card-text">Username: {{user.username}}</p>
-              <p class="card-text">Firstname: {{user.firstname}}</p>
-              <p class="card-text">Lastname: {{user.lastname}}</p>
-              <p class="card-text">Password: {{user.password}}</p>
-              <p class="card-text">Gender: {{user.gender}}</p>
-              <p class="card-text">Birthday: {{user.birthday}}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editCustomerModal">Edit</button>
-                </div>
-                <small class="text-muted">9 mins</small>
+              <div class="align-items-center" style="text-align:right">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editCustomerModal">Edit</button>
               </div>
+              <p class="card-text"><span class="text-muted">Username:</span> {{user.username}}</p>
+              <p class="card-text"><span class="text-muted">Firstname:</span> {{user.firstname}}</p>
+              <p class="card-text"><span class="text-muted">Lastname:</span> {{user.lastname}}</p>
+              <p class="card-text"><span class="text-muted">Password:</span> {{user.password}}</p>
+              <p class="card-text"><span class="text-muted">Gender:</span> {{user.gender}}</p>
+              <p class="card-text"><span class="text-muted">Birthday:</span> {{user.birthday}}</p>
             </div>
           </div>
         </div>
@@ -74,7 +71,7 @@ template: `
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title">Edit customer</h5>
+		        <h5 class="modal-title">Edit profile</h5>
 		        <button type="button" v-on:click="updateFormData()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">

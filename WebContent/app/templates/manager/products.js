@@ -176,7 +176,7 @@ Vue.component("products", {
 			</button>
 	<table class="table table-bordered bg-light mb-5" style="border-color:#607d8b" >
 				<thead>
-				<tr style="background: #0d6efd; text-align: center; color: white;border-color: #0e4494; ">
+				<tr style="background: rgb(108 117 125); text-align: center; color: white;border-color: rgb(69 75 80); ">
 					<th>Name</th>
 					<th>Price</th>
 					<th>Type</th>
