@@ -17,6 +17,7 @@ Vue.component("main-header", {
       <ul id="headerLinks" class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" v-if="customerRole">
         <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/home" class="nav-link px-2 link-secondary">Home</a></li>
         <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/profile" class="nav-link px-2 link-dark"">Profile</a></li>
+        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/cart" class="nav-link px-2 link-dark">Cart</a></li>
       </ul>
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" v-if="delivererRole">
         <li onclick="active(this)"><a href="/NarucivanjeHrane/#/deliverer/home" class="nav-link px-2 link-secondary">Home</a></li>
@@ -35,16 +36,19 @@ Vue.component("main-header", {
 </div>  
 `,
 	mounted() {
-		let user = JSON.parse(localStorage.user?localStorage.user:"");
-		if(user.role=="CUSTOMER"){
-			this.customerRole = true;
-			this.noRole=false;
+		if(localStorage.user=="" || localStorage.user=="undefined") {
+			this.noRole=true;
+		} else {
+			let user = JSON.parse(localStorage.user);
+			if(user.role=="CUSTOMER"){
+				this.customerRole = true;
+				this.noRole=false;
+			}
+			if(user.role=="DELIVERER"){
+				this.delivererRole = true;
+				this.noRole=false;
+			}
 		}
-		if(user.role=="DELIVERER"){
-			this.delivererRole = true;
-			this.noRole=false;
-		}
-		
 		function loggedAs(type) {
 			let userString = localStorage.user?localStorage.user:"";
 			if(userString !=""){

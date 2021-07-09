@@ -13,6 +13,7 @@ const RestaurantViewWH = {template: '<restaurant-view-wh></restaurant-view-wh>'}
 const Customer = {template: '<customer></customer>'}
 const CustomerHome = {template: '<customer-home></customer-home>'}
 const CustomerProfile = {template: '<customer-profile></customer-profile>'}
+const CustomerCart = {template: '<customer-cart></customer-cart>'}
 const Manager = {template: '<manager></manager>'}
 const ManagerHome = {template: '<manager-home></manager-home>'}
 const ManagerProfile = {template: '<manager-profile></manager-profile>'}
@@ -164,6 +165,10 @@ const router = new VueRouter({
 	    		{
 	    			path: 'restaurant/:id',
 	    			component:RestaurantView,
+	    		},
+	    		{
+	    			path: 'cart',
+	    			component: CustomerCart
 	    		},
 	    	],
 	    	beforeEnter: (to, from, next) => {

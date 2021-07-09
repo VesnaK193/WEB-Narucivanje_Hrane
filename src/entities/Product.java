@@ -6,7 +6,7 @@ public class Product {
 	private String name;
 	private double price;
 	private ProductType productType;
-	private Restaurant restaurant;
+	private int restaurantId;
 	private double quantity;
 	private String description;
 	private String image;
@@ -39,12 +39,12 @@ public class Product {
 		this.productType = productType;
 	}
 
-	public Restaurant getRestaurant() {
-		return restaurant;
+	public int getRestaurantId() {
+		return restaurantId;
 	}
 
-	public void setRestaurant(Restaurant restaurant) {
-		this.restaurant = restaurant;
+	public void setRestaurantId(int restaurantId) {
+		this.restaurantId = restaurantId;
 	}
 
 	public double getQuantity() {

@@ -73,8 +73,12 @@ Vue.component("register", {
 						this.errorMessage = "Username already exists!";
 					} else {
 						this.errorMessage = "";
-						localStorage.user =JSON.stringify(response.data);
-						window.location.href = '/NarucivanjeHrane/#/customer/home';
+						axios
+						.post("rest/customer/update",response.data)
+						.then(responseCustomer => {
+							localStorage.user =JSON.stringify(response.data);
+							window.location.href = '/NarucivanjeHrane/#/customer/home';
+						});
 					}
 				});
 			}
