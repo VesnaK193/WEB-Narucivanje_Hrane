@@ -90,4 +90,9 @@ footer p {
  .fa-30{
  width:30px;
  }
-    
+  .products-container {
+    background: white;
+    border-left: 1px solid rgb(0 0 0 / 10%);
+    border-bottom: 1px solid rgb(0 0 0 / 10%);
+    border-right: 1px solid rgb(0 0 0 / 10%);
+  } 

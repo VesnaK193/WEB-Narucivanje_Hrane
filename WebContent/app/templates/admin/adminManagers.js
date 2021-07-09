@@ -49,7 +49,17 @@ methods: {
 				}
 			});
 		}
-	}
+	},
+
+resetForm: function() {
+	this.modal_username = "";
+	this.modal_password= "";
+	this.modal_firstname= "";
+	this.modal_lastname= "";
+	this.modal_gender= "";
+	this.modal_birthday= null;
+	this.errorMessage="";
+}
 
 },
 template: ` 
@@ -57,7 +67,7 @@ template: `
 		<div class="row">
 			<div class="col-md-12 text-center mb-3 mt-3"><h1>Managers</h1></div>
 			<!-- Button trigger add modal -->
-			<button type="button" style="font-weight: 700;" class="btn btn-primary mb-3 offset-md-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addManagerModal">
+			<button type="button" style="font-weight: 700;" class="btn btn-primary mb-3 offset-md-10 col-md-2" @click="resetForm" data-bs-toggle="modal" data-bs-target="#addManagerModal">
 			  Add
 			</button>
 			<table class="table table-bordered bg-light" style="border-color:#607d8b">

@@ -46,7 +46,7 @@ Vue.component("register", {
 	      <label for="floatingInput">Birthday</label>
 	    </div>
 	    <span class="errorMessage">{{errorMessage}}</span>
-	    <button class="w-100 btn btn-lg btn-primary mt-3" type="button" v-on:click="checkForm()">Sign in</button>
+	    <button class="w-100 btn btn-lg btn-primary mt-3" type="button" v-on:click="checkForm()">Register</button>
 	  </div>
 	</main>	
 	</div>
@@ -74,7 +74,7 @@ Vue.component("register", {
 					} else {
 						this.errorMessage = "";
 						localStorage.user =JSON.stringify(response.data);
-						window.location.href = '/NarucivanjeHrane/#/user/home';
+						window.location.href = '/NarucivanjeHrane/#/customer/home';
 					}
 				});
 			}

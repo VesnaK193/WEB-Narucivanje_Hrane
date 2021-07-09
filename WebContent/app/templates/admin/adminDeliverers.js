@@ -51,6 +51,17 @@ methods: {
 				}
 			});
 		}
+	},
+	
+	resetForm: function() {
+		this.modal_username= "";
+		this.modal_password= "";
+		this.modal_firstname= "";
+		this.modal_lastname= "";
+		this.modal_gender= "";
+		this.modal_birthday= null;
+		this.modal_errorMessage="";
+		this.errorMessage="";
 	}
 
 },
@@ -59,7 +70,7 @@ template: `
 		<div class="row">
 			<div class="col-md-12 text-center mb-3 mt-3"><h1>Deliverers</h1></div>
 			<!-- Button trigger add modal -->
-			<button type="button" style="font-weight: 700;" class="btn btn-primary mb-3 offset-md-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addDelivererModal">
+			<button type="button" style="font-weight: 700;" @click="resetForm" class="btn btn-primary mb-3 offset-md-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addDelivererModal">
 			  Add
 			</button>
 			<table class="table table-bordered bg-light" style="border-color:#607d8b">
