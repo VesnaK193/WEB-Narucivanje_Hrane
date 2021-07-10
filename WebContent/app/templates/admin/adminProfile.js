@@ -1,8 +1,24 @@
 Vue.component("admin-profile", {
 	data: function () {
 	    return {
-	    	user:null,
-	    	modal_user:null,
+	    	user:{
+	    		birthday: "",
+	    		firstname: "",
+	    		gender: "",
+	    		lastname: "",
+	    		password: "",
+	    		username: "",
+	    		
+	    	},
+	    	modal_user:{
+	    		birthday: "",
+	    		firstname: "",
+	    		gender: "",
+	    		lastname: "",
+	    		password: "",
+	    		username: "",
+	    		
+	    	},
 	    	errorMessage: ""
 	    }
 },

@@ -59,7 +59,7 @@ public class UserService {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		User userWithNewUsername = userDao.findByUsername(u.getUsername());
 		if(userWithNewUsername==null) {
-			userDao.addUser(u);
+			u = userDao.addUser(u);
 			return u;
 		}
 		return null;

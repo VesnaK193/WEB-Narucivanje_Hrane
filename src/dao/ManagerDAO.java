@@ -68,7 +68,7 @@ public class ManagerDAO {
 				managers.put(m.getId(), m);
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			
 		} finally {
 			if (reader != null) {
 				try {

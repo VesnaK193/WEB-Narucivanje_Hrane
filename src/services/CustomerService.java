@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import dao.CustomerDAO;
 import entities.Customer;
+import entities.User;
 
 @Path("/customer")
 public class CustomerService {
@@ -47,6 +48,15 @@ public class CustomerService {
 	public Customer updateCustomer(Customer c) {
 		CustomerDAO customerDAO = (CustomerDAO) ctx.getAttribute("customerDAO");
 		return customerDAO.updateCustomer(c);
+	}
+	
+	@POST
+	@Path("/getById")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Customer getById(User u) {
+		CustomerDAO customerDAO = (CustomerDAO) ctx.getAttribute("customerDAO");
+		return customerDAO.findById(u.getId());
 	}
 	
 	@POST

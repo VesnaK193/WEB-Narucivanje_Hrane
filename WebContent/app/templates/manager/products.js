@@ -8,6 +8,7 @@ Vue.component("products", {
 				quantity: "",
 				description: "",
 				image: "",
+				restaurantId: "",
 			},
 			errorMessage:"",
 			manager: {
@@ -53,6 +54,7 @@ Vue.component("products", {
 					this.errorMessage = "";
 					let prodList =  this.manager.restaurant.products?this.manager.restaurant.products:[];
 					this.product.image=document.querySelector("#addProductModal #product_img").src;
+					this.product.restaurantId = this.manager.restaurant.id;
 					if(prodList.length>0) 
 					{
 						this.manager.restaurant.products.push(this.product);

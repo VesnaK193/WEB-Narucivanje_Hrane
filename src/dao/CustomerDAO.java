@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import entities.Customer;
+import entities.Product;
+import entities.ShoppingCart;
+import enums.ProductType;
 
 public class CustomerDAO {
 	private Map<Integer, Customer> customers = new HashMap<>();
@@ -48,7 +52,6 @@ public class CustomerDAO {
 			File file = new File(contextPath + "storage\\customers.txt");
 			reader = new BufferedReader(new FileReader(file));
 			String json = reader.lines().collect(Collectors.joining());
-			System.out.println(json);
 			Collection<Customer> cList = new ObjectMapper().readValue(json, new TypeReference<List<Customer>>(){});
 			
 			for(Customer c : cList) {
@@ -92,15 +95,7 @@ public class CustomerDAO {
 	
 	public Customer updateCustomer(Customer customer) {
 		File file = new File(contextPath + "storage\\customers.txt");
-		
-		Customer oldCustomer = customers.get(customer.getId());
-		try {
-			customer.setAllOrders(oldCustomer.getAllOrders());
-			customer.setShoppingCart(oldCustomer.getShoppingCart());
-			customer.setNumberOfPoints(oldCustomer.getNumberOfPoints());
-			customer.setTypeOfCustomer(oldCustomer.getTypeOfCustomer());
-		} catch(NullPointerException ex) {}
-		
+
 		customers.put(customer.getId(), customer);
 		
 		BufferedWriter writer = null;
