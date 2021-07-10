@@ -57,7 +57,6 @@ public class RestaurantDAO {
 				restaurants.put(r.getId(), r);
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		} finally {
 			if (reader != null) {
 				try {
@@ -81,7 +80,6 @@ public class RestaurantDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {
@@ -125,7 +123,6 @@ public class RestaurantDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {

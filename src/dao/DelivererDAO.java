@@ -58,7 +58,6 @@ public class DelivererDAO {
 				deliverers.put(d.getId(), d);
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		} finally {
 			if (reader != null) {
 				try {
@@ -82,7 +81,6 @@ public class DelivererDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {
@@ -96,11 +94,6 @@ public class DelivererDAO {
 	public Deliverer updateDeliverer(Deliverer deliverer) {
 		File file = new File(contextPath + "storage\\deliverers.txt");
 		
-		Deliverer oldDeliverer = deliverers.get(deliverer.getId());
-		try {
-			deliverer.setOrders(oldDeliverer.getOrders());
-		} catch(NullPointerException ex) {}
-		
 		deliverers.put(deliverer.getId(), deliverer);
 		
 		BufferedWriter writer = null;
@@ -111,7 +104,6 @@ public class DelivererDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {

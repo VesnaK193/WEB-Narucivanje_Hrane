@@ -17,12 +17,15 @@ const CustomerCart = {template: '<customer-cart></customer-cart>'}
 const CustomerOrders = {template: '<customer-orders></customer-orders>'}
 const Manager = {template: '<manager></manager>'}
 const ManagerHome = {template: '<manager-home></manager-home>'}
+const ManagerOrders = {template: '<manager-orders></manager-orders>'}
 const ManagerProfile = {template: '<manager-profile></manager-profile>'}
 const MyRestaurant = {template: '<my-restaurant></my-restaurant>'}
 const Products = {template: '<products></products>'}
 const Deliverer = {template: '<deliverer></deliverer>'}
 const DelivererHome = {template: '<deliverer-home></deliverer-home>'}
 const DelivererProfile = {template: '<deliverer-profile></deliverer-profile>'}
+const DelivererMyOrders = {template: '<deliverer-orders></deliverer-orders>'}
+const DelivererPendingOrders = {template: '<deliverer-pending-orders></deliverer-pending-orders>'}
 const PageNotFound = {template: '<div><h1 class="text-center mt-5">404! Page not found.</h1></div>'}
 
 const router = new VueRouter({
@@ -135,6 +138,10 @@ const router = new VueRouter({
 	    			component: Products
 	    		},
 	    		{
+	    			path: 'orders',
+	    			component: ManagerOrders
+	    		},
+	    		{
 	    			path: 'restaurant/:id',
 	    			component:RestaurantView,
 	    		},
@@ -201,8 +208,12 @@ const router = new VueRouter({
 	    			component: DelivererHome
 	    		},
 	    		{
-	    			path: 'restaurant/:id',
-	    			component:RestaurantView,
+	    			path: 'myOrders',
+	    			component:DelivererMyOrders,
+	    		},
+	    		{
+	    			path: 'pendingOrders',
+	    			component:DelivererPendingOrders,
 	    		},
 	    	],
 	    	beforeEnter: (to, from, next) => {

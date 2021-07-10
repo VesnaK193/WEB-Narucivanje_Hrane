@@ -39,6 +39,7 @@ methods: {
 		//Conver to miliseconds
 		this.modal_customer.birthday = new Date(this.modal_customer.birthday).getTime();
 		let s = {
+				id:this.customer.id,
 	    		birthday: this.modal_customer.birthday,
 	    		firstname: this.modal_customer.firstname,
 	    		gender: this.modal_customer.gender,
@@ -59,6 +60,7 @@ methods: {
 				.post("rest/customer/update", this.modal_customer)
 				.then(response => {
 					let r = {
+							id:this.customer.id,
 				    		birthday: response.data.birthday,
 				    		firstname: response.data.firstname,
 				    		gender: response.data.gender,
@@ -98,7 +100,7 @@ template: `
           <div class="card shadow-sm">
             <div class="card-body">
               <div class="align-items-center" style="text-align:right">
-                <button type="button" class="btn btn-sm btn-outline-secondary"@click="resetModalData()" data-bs-toggle="modal" data-bs-target="#editCustomerModal">Edit</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" @click="resetModalData()" data-bs-toggle="modal" data-bs-target="#editCustomerModal">Edit</button>
               </div>
               <p class="card-text"><span class="text-muted">Username:</span> {{customer.username}}</p>
               <p class="card-text"><span class="text-muted">Firstname:</span> {{customer.firstname}}</p>
@@ -121,7 +123,7 @@ template: `
 		      <div class="modal-body">
 		      <!--   MODAL FORM    -->
 		        <div class="form-floating mb-2">
-			      <input type="text" class="form-control" name="username" v-model="modal_customer.username" placeholder="Username">
+			      <input disabled type="text" class="form-control" name="username" v-model="modal_customer.username" placeholder="Username">
 			      <label for="floatingInput">Username</label>
 			    </div>
 			    <div class="form-floating mb-2">

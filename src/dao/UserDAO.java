@@ -49,14 +49,6 @@ public class UserDAO {
 		}
 		return null;
 	}
-
-	public boolean isNewUsernameUnique(User user) {
-		for(User u : users.values()) {
-			if(u.getId()!=user.getId() && u.getUsername().equals(user.getUsername())) 
-				return false;
-		}
-		return true;
-	}
 	
 	public Collection<User> findAll() {
 		return users.values();
@@ -75,7 +67,6 @@ public class UserDAO {
 				users.put(u.getId(), u);
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		} finally {
 			if (reader != null) {
 				try {
@@ -99,7 +90,6 @@ public class UserDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {
@@ -125,7 +115,6 @@ public class UserDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {

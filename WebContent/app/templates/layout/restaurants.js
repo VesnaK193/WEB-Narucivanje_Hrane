@@ -11,7 +11,7 @@ mounted() {
 		axios
 		.get("rest/restaurant/sortedRestaurants")
 		.then(response => {
-			this.restaurants = response.data;
+			this.restaurants = response.data.length==0?[]:response.data;
 		});
 		},
 methods: {
@@ -27,14 +27,22 @@ methods: {
 			},
 		getFullRoute : function(event) {
 			console.log(event.target);
-		}
 		},
+		areRestaurantsEmpty: function(){
+			let areEmpty = true;
+			if(this.restaurants!=null){
+				if(this.restaurants.length>0)
+					areEmpty = false;
+			}
+			return areEmpty;
+		}
+},
 template: ` 
 	<div>
 	<div class="container py-5">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col" v-for="restaurant in restaurants">
+        <div v-if="!areRestaurantsEmpty()" class="col" v-for="restaurant in restaurants">
           <div class="card shadow-sm">
             <img v-bind:src="restaurant.logo" class="bg-placeholder-img card-img-top" width="100%" height="225">
             <div class="card-body">
@@ -54,6 +62,7 @@ template: `
             </div>
           </div>
         </div>
+        <h2 class="w-100 text-center" v-if="areRestaurantsEmpty()" >No restaurants at the moment</h2>
       </div>
     </div>
 	</div> 

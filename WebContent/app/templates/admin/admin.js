@@ -18,7 +18,7 @@ Vue.component("admin", {
 		          <span>Manage entities</span>
 		        </h6>
 		          <li class="nav-item">
-		            <a class="nav-link active" aria-current="page" href="/NarucivanjeHrane/#/admin">
+		            <a class="nav-link" aria-current="page" href="/NarucivanjeHrane/#/admin">
 		              Dashboard
 		            </a>
 		          </li>

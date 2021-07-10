@@ -15,14 +15,16 @@ Vue.component("main-header", {
       </a>
 
       <ul id="headerLinks" class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" v-if="customerRole">
-        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/home" class="nav-link px-2 link-secondary">Home</a></li>
-        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/profile" class="nav-link px-2 link-dark"">Profile</a></li>
-        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/cart" class="nav-link px-2 link-dark">Cart</a></li>
-        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/orders" class="nav-link px-2 link-dark">Orders</a></li>
+        <li><a href="/NarucivanjeHrane/#/customer/home" class="nav-link px-2 link-dark">Home</a></li>
+        <li><a href="/NarucivanjeHrane/#/customer/profile" class="nav-link px-2 link-dark"">Profile</a></li>
+        <li><a href="/NarucivanjeHrane/#/customer/cart" class="nav-link px-2 link-dark">Cart</a></li>
+        <li><a href="/NarucivanjeHrane/#/customer/orders" class="nav-link px-2 link-dark">Orders</a></li>
       </ul>
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" v-if="delivererRole">
-        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/deliverer/home" class="nav-link px-2 link-secondary">Home</a></li>
-        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/deliverer/profile" class="nav-link px-2 link-dark"">Profile</a></li>
+        <li><a href="/NarucivanjeHrane/#/deliverer/home" class="nav-link px-2 link-dark">Home</a></li>
+        <li><a href="/NarucivanjeHrane/#/deliverer/profile" class="nav-link px-2 link-dark"">Profile</a></li>
+        <li><a href="/NarucivanjeHrane/#/deliverer/myOrders" class="nav-link px-2 link-dark">My orders</a></li>
+        <li><a href="/NarucivanjeHrane/#/deliverer/pendingOrders" class="nav-link px-2 link-dark"">Pending orders</a></li>
       </ul>
 
       <div class="col-md-3 text-end" v-if="noRole">
@@ -72,10 +74,3 @@ Vue.component("main-header", {
 		}
 	}
 });
-function active(element) {
-	let oldElem = element.parentElement.querySelector(".link-secondary");
-	oldElem.classList.remove("link-secondary");
-	oldElem.classList.add("link-dark");
-	element.querySelector("a").classList.remove("link-dark");
-	element.querySelector("a").classList.add("link-secondary");
-}

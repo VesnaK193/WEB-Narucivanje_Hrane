@@ -21,7 +21,9 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 import entities.Order;
 import entities.Product;
+import entities.Restaurant;
 import entities.ShoppingCart;
+import enums.OrderStatus;
 
 public class OrderDAO {
 	private Map<String, Order> orders = new HashMap<>();
@@ -53,6 +55,39 @@ public class OrderDAO {
 		return userOrders;
 	}
 	
+	public Collection<Order> findByRestaurantId(int id) {
+		Collection<Order> restaurantOrders = new ArrayList<>();
+		for(Order o : orders.values()) {
+			if(o.getRestaurant().getId() == id)
+				restaurantOrders.add(o);
+		}
+		return restaurantOrders;
+	}
+
+	public Collection<Order> getPendingOrders() {
+		Collection<Order> pendingOrders = new ArrayList<>();
+		for(Order o : orders.values()) {
+			if(o.getOrderStatus() == OrderStatus.WAITING_FOR_DELIVERER)
+				pendingOrders.add(o);
+		}
+		return pendingOrders;
+	}
+
+	public Collection<Order> getNotDeliveredOrdersByUserId(int id) {
+		Collection<Order> userOrders = new ArrayList<>();
+		for(Order o : orders.values()) {
+			if(o.getCustomer().getId() == id)
+				userOrders.add(o);
+		}
+		
+		Collection<Order> notDeliveredOrders = new ArrayList<>();
+		for(Order o : userOrders) {
+			if(o.getOrderStatus() != OrderStatus.DELIVERED)
+				notDeliveredOrders.add(o);
+		}
+		return notDeliveredOrders;
+	}
+	
 	public Collection<Order> findAll() {
 		return orders.values();
 	}
@@ -69,7 +104,6 @@ public class OrderDAO {
 				orders.put(o.getId(), o);
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		} finally {
 			if (reader != null) {
 				try {
@@ -93,7 +127,6 @@ public class OrderDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {
@@ -122,7 +155,6 @@ public class OrderDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {

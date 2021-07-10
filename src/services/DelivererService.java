@@ -43,6 +43,15 @@ public class DelivererService {
 		DelivererDAO delivererDAO = (DelivererDAO) ctx.getAttribute("delivererDAO");
 		return delivererDAO.findAll();
 	}
+	
+	@POST
+	@Path("/getById")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Deliverer getById(User user) {
+		DelivererDAO delivererDAO = (DelivererDAO) ctx.getAttribute("delivererDAO");
+		return delivererDAO.findById(user.getId());
+	}
+	
 	@POST
 	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)

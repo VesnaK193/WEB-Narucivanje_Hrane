@@ -71,11 +71,8 @@ public class UserService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public User update(User u) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		if(userDao.isNewUsernameUnique(u)) {
-			userDao.updateUser(u);
-			return u;
-		}
-		return null;
+		userDao.updateUser(u);
+		return u;
 	}
 	
 	@POST

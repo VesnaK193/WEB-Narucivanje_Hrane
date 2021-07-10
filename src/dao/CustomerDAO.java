@@ -58,7 +58,6 @@ public class CustomerDAO {
 				customers.put(c.getId(), c);
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		} finally {
 			if (reader != null) {
 				try {
@@ -82,7 +81,6 @@ public class CustomerDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {
@@ -106,7 +104,6 @@ public class CustomerDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {

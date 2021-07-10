@@ -37,7 +37,7 @@ methods: {
 				} else {
 					this.errorMessage = "";
 					axios
-					.post("rest/deliverer/add", s)
+					.post("rest/deliverer/add", response.data)
 					.then (response1 => {
 						console.log(response1.data);
 						if(response1.data != "") {
@@ -81,7 +81,6 @@ template: `
 					<th>Password</th>
 					<th>Gender</th>
 					<th>Birthday</th>
-					<th>Restaurant</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -91,7 +90,6 @@ template: `
 					<td>{{deliverer.password}}</td>
 					<td>{{deliverer.gender}}</td>
 					<td>{{deliverer.birthday}}</td>
-					<td>{{deliverer.restaurant}}</td>
 				</tr>
 				</tbody>
 			</table>

@@ -75,6 +75,11 @@ methods: {
 	changeCurrentProduct: function(product){
 		this.currentProduct= product;
 		this.quantity = 1;
+	},
+	addAvailable: function(){
+		if(this.restaurant.restaurantStatus=='OPEN' && this.customerRole )
+			return true;
+		return false;
 	}
 },
 template: ` 
@@ -119,7 +124,7 @@ template: `
 				<td class=" py-2" style="width:50%">{{product.description}}</td>
 				<td class=" py-2" style="width:10%">{{product.price}} rsd</td>
 				<td class=" py-1" style="text-align:right; width:15%">
-					<button v-if="customerRole" type="button" data-bs-toggle="modal" @click="changeCurrentProduct(product)" data-bs-target="#productQuantityModal" class="btn btn-secondary mx-2">Add to cart</button>
+					<button v-if="addAvailable()" type="button" data-bs-toggle="modal" @click="changeCurrentProduct(product)" data-bs-target="#productQuantityModal" class="btn btn-secondary mx-2">Add to cart</button>
 				</td>
 			</tr>
 		</tbody>
