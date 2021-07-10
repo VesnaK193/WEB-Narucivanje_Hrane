@@ -25,7 +25,6 @@ template: `
 					<th>Password</th>
 					<th>Gender</th>
 					<th>Birthday</th>
-					<th>Shopping Cart</th>
 					<th>Points</th>
 					<th>Type</th>
 					<th>Orders</th>
@@ -38,7 +37,6 @@ template: `
 					<td>{{customer.password}}</td>
 					<td>{{customer.gender}}</td>
 					<td>{{customer.birthday}}</td>
-					<td>{{customer.shoppingCart}}</td>
 					<td>{{customer.numberOfPoints}}</td>
 					<td>{{customer.typeOfCustomer}}</td>
 					<td>{{customer.allOrders}}</td>

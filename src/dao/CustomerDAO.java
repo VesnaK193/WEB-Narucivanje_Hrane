@@ -52,7 +52,6 @@ public class CustomerDAO {
 			File file = new File(contextPath + "storage\\customers.txt");
 			reader = new BufferedReader(new FileReader(file));
 			String json = reader.lines().collect(Collectors.joining());
-			System.out.println(json);
 			Collection<Customer> cList = new ObjectMapper().readValue(json, new TypeReference<List<Customer>>(){});
 			
 			for(Customer c : cList) {
@@ -117,14 +116,5 @@ public class CustomerDAO {
 			}
 		}
 		return customer;
-	}
-	
-	public double calculatePrice(ShoppingCart sc) {
-		double priceSum = 0;
-		for(Product p : sc.getProducts()) {
-			priceSum += p.getPrice();
-		}
-		
-		return priceSum;
 	}
 }

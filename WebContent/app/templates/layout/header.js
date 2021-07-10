@@ -18,6 +18,7 @@ Vue.component("main-header", {
         <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/home" class="nav-link px-2 link-secondary">Home</a></li>
         <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/profile" class="nav-link px-2 link-dark"">Profile</a></li>
         <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/cart" class="nav-link px-2 link-dark">Cart</a></li>
+        <li onclick="active(this)"><a href="/NarucivanjeHrane/#/customer/orders" class="nav-link px-2 link-dark">Orders</a></li>
       </ul>
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" v-if="delivererRole">
         <li onclick="active(this)"><a href="/NarucivanjeHrane/#/deliverer/home" class="nav-link px-2 link-secondary">Home</a></li>

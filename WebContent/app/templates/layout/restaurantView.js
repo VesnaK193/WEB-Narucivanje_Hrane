@@ -54,10 +54,12 @@ mounted() {
 methods: {
 	addToCart: function(){
 		for(let i=0;i<this.quantity;i++){
-			if(this.currentCustomer.shoppingCart==null)
+			if(this.currentCustomer.shoppingCart==null){
 				this.currentCustomer.shoppingCart = Object.assign({}, this.shoppingCart);
-			
-			this.currentCustomer.shoppingCart.products.push(this.currentProduct);
+				this.currentCustomer.shoppingCart.products = [this.currentProduct];
+			} else {
+				this.currentCustomer.shoppingCart.products.push(this.currentProduct);
+			}
 		}
 		//Calculate total price
 		this.currentCustomer.shoppingCart.price = 0;
