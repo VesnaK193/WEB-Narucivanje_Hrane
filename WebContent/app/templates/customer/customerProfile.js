@@ -8,6 +8,8 @@ Vue.component("customer-profile", {
 	    		lastname: "",
 	    		password: "",
 	    		username: "",
+	    		typeOfCustomer: {typeName:"",discount:0,pointsToNextType: 0},
+	    		numberOfPoints:0
 	    		
 	    	},
 	    	modal_customer: {
@@ -108,6 +110,11 @@ template: `
               <p class="card-text"><span class="text-muted">Password:</span> {{customer.password}}</p>
               <p class="card-text"><span class="text-muted">Gender:</span> {{customer.gender}}</p>
               <p class="card-text"><span class="text-muted">Birthday:</span> {{customer.birthday}}</p>
+              <hr>
+              <p class="card-text"><span class="text-muted">Type:</span> {{customer.typeOfCustomer.typeName}}</p>
+              <p class="card-text"><span class="text-muted">Points:</span> {{customer.numberOfPoints}}</p>
+              <p class="card-text"><span class="text-muted">Discount:</span> {{customer.typeOfCustomer.discount}}%</p>
+              <p class="card-text"><span class="text-muted">Points to next type:</span> {{customer.typeOfCustomer.pointsToNextType}}</p>
             </div>
           </div>
         </div>

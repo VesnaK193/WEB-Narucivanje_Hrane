@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import entities.Customer;
 import entities.Order;
 import entities.Product;
 import entities.Restaurant;
@@ -176,5 +177,26 @@ public class OrderDAO {
 	      sb.append(AB.charAt(rnd.nextInt(AB.length())));
 	   System.out.println(sb.toString());
 	   return sb.toString();
+	}
+
+	public Collection<Customer> getAllCustomersThatOrderedInRestaurant(int id) {
+		Collection<Order> restaurantOrders = new ArrayList<>();
+		Collection<Customer> restaurantCustomers = new ArrayList<>();
+		for(Order o : orders.values()) {
+			if(o.getRestaurant().getId() == id)
+				restaurantOrders.add(o);
+		}
+		for(Order o : restaurantOrders) {
+			boolean contains=false;
+			for(Customer c : restaurantCustomers) {
+				if(c.getId()==o.getCustomer().getId()) {
+					contains=true;
+					break;
+				}	
+			}
+			if(!contains)
+				restaurantCustomers.add(o.getCustomer());
+		}
+		return restaurantCustomers;
 	}
 }

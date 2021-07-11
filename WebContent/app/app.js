@@ -18,6 +18,8 @@ const CustomerOrders = {template: '<customer-orders></customer-orders>'}
 const Manager = {template: '<manager></manager>'}
 const ManagerHome = {template: '<manager-home></manager-home>'}
 const ManagerOrders = {template: '<manager-orders></manager-orders>'}
+const ManagerCustomers = {template: '<manager-customers></manager-customers>'}
+const ManagerComments = {template: '<manager-comments></manager-comments>'}
 const ManagerProfile = {template: '<manager-profile></manager-profile>'}
 const MyRestaurant = {template: '<my-restaurant></my-restaurant>'}
 const Products = {template: '<products></products>'}
@@ -142,8 +144,16 @@ const router = new VueRouter({
 	    			component: ManagerOrders
 	    		},
 	    		{
+	    			path: 'customers',
+	    			component: ManagerCustomers
+	    		},
+	    		{
 	    			path: 'restaurant/:id',
 	    			component:RestaurantView,
+	    		},
+	    		{
+	    			path: 'comments',
+	    			component:ManagerComments,
 	    		},
 	    	],
 	    	beforeEnter: (to, from, next) => {
@@ -214,6 +224,10 @@ const router = new VueRouter({
 	    		{
 	    			path: 'pendingOrders',
 	    			component:DelivererPendingOrders,
+	    		},
+	    		{
+	    			path: 'restaurant/:id',
+	    			component:RestaurantView,
 	    		},
 	    	],
 	    	beforeEnter: (to, from, next) => {

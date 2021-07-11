@@ -57,7 +57,7 @@ template: `
                 <div class="btn-group">
                   <a v-bind:href="route + restaurant.id" class="btn btn-sm btn-outline-secondary">View</a>
                 </div>
-                <small class="text-muted"><i class="fa fa-30"><img src="assets/images/star.svg"></i></small>
+              	<p>{{restaurant.averageRating}}/5</p>
               </div>
             </div>
           </div>

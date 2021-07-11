@@ -32,7 +32,7 @@ mounted () {
 		isRestaurantEmpty: function(){
 			let isEmpty = true;
 			if(this.restaurant!=null){
-				if(this.restaurant.id !="" && this.restaurant.id != null)
+				if(this.restaurant.id != null)
 					isEmpty = false;
 			}
 			return isEmpty;

@@ -13,6 +13,7 @@ public class Restaurant {
 	private RestaurantStatus restaurantStatus;
 	private Location location;
 	private String logo;
+	private double averageRating;
 	
 	public Restaurant () {
 		
@@ -72,6 +73,14 @@ public class Restaurant {
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+
+	public double getAverageRating() {
+		return averageRating;
+	}
+
+	public void setAverageRating(double averageRating) {
+		this.averageRating = averageRating;
 	}
 
 	

@@ -6,7 +6,8 @@ Vue.component("customer-cart", {
 	    			products:[],
 	    			price:0
 	    		}
-	    	}
+	    	},
+	    	priceWithDiscount:0,
 	    }
 },
 mounted() {
@@ -15,7 +16,7 @@ mounted() {
 	.post("rest/customer/getById", user)
 	.then(response => {
 		this.customer = response.data;
-		console.log(this.customer);
+		this.calculateTotal();
 	})
 	
 	
@@ -38,9 +39,26 @@ methods: {
 				restIdProduct.set(p.restaurantId,[p]);
 			}
 		})
+		let scPrice = this.priceWithDiscount;
 		this.customer.shoppingCart = null;
+		this.customer.typeOfCustomer = {typeName:"",discount:0,pointsToNextType: 0};
+		this.customer.numberOfPoints += scPrice/1000*133;
+		if(this.customer.numberOfPoints<1000){
+			this.customer.typeOfCustomer.typeName = "BRONZE";
+			this.customer.typeOfCustomer.discount = 3;
+			this.customer.typeOfCustomer.pointsToNextType = 1000-this.customer.numberOfPoints;
+		} else if(this.customer.numberOfPoints>=1000 && this.customer.numberOfPoints<2000){
+			this.customer.typeOfCustomer.typeName = "SILVER";
+			this.customer.typeOfCustomer.discount = 5;
+			this.customer.typeOfCustomer.pointsToNextType = 2000-this.customer.numberOfPoints;
+		}else if(this.customer.numberOfPoints>=2000){
+			this.customer.typeOfCustomer.typeName = "GOLD";
+			this.customer.typeOfCustomer.discount = 10;
+			this.customer.typeOfCustomer.pointsToNextType = 0;
+		}
 		axios
 		.post('rest/customer/update', this.customer);
+
 		restIdProduct.forEach((value,key)=>{
 			this.updateOrder(value,key);
 		})
@@ -55,16 +73,11 @@ methods: {
 				restaurant.logo = null;
 				let dateInMs = new Date();
 				dateInMs = dateInMs.getTime();
-				let totalPrice = 0;
-				value.forEach(p=>{
-					p.image = null;
-					totalPrice += p.price;
-				})
 				let order = {
 					products: value, 
 					restaurant: restaurant, 
 					dateAndTime: dateInMs, 
-					price: totalPrice,
+					price: this.priceWithDiscount,
 					customer: this.customer,
 					orderStatus: 'PROCESSING'
 				}
@@ -72,7 +85,6 @@ methods: {
 				axios
 				.post('rest/order/update', order)
 				.then(response1 => {
-					resolve(response1.data);
 				})
 			});
 		})
@@ -96,8 +108,12 @@ methods: {
 		this.customer.shoppingCart.products.forEach(p=>{
 			this.customer.shoppingCart.price += p.price;
 		})
+		this.calculateTotal();
 		axios
 		.post('rest/customer/update', this.customer);
+	},
+	calculateTotal: function(){
+		this.priceWithDiscount = this.customer.shoppingCart.price  * ((100-(this.customer.typeOfCustomer.discount))/100);
 	}
 },
 template: ` 
@@ -131,8 +147,12 @@ template: `
 								</tr>
 							 </tbody>
 						  </table>
+						  <hr>
 					      <div class="w-100 py-2">
-					      	<p style="text-align:right; font-size: 1.3rem;">Total: {{customer.shoppingCart.price}} RSD</p>
+					      	<p style="text-align:right; font-size: 1.3rem;">Price: {{customer.shoppingCart.price}} RSD</p>
+					      	<p style="text-align:right; font-size: 1.3rem;">Discount: {{customer.typeOfCustomer.discount}} % </p>
+					      	<hr>
+					      	<p style="text-align:right; font-size: 1.3rem;">Total: {{priceWithDiscount}} RSD</p>
 					      </div>
 					  </div>
 					  <p class="py-3 mx-3" v-if="shoppingCartEmpty()"> No products in shopping cart</p>
