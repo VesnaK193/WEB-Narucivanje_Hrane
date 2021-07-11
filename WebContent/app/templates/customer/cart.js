@@ -86,6 +86,18 @@ methods: {
 					isEmpty = false;
 		}
 		return isEmpty;
+	},
+	removeFromCart: function(product) {
+		let index= this.customer.shoppingCart.products.indexOf(product);
+		if (index > -1) {
+			this.customer.shoppingCart.products.splice(index, 1);
+		}
+		this.customer.shoppingCart.price=0;
+		this.customer.shoppingCart.products.forEach(p=>{
+			this.customer.shoppingCart.price += p.price;
+		})
+		axios
+		.post('rest/customer/update', this.customer);
 	}
 },
 template: ` 
@@ -104,14 +116,18 @@ template: `
 									<th class=" py-1">Name</th>
 									<th class=" py-1">Description</th>
 									<th class=" py-1">Price</th>
+									<th class=" py-1"></th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr style="border-bottom: 1px solid rgba(0,0,0,10%)" v-for="product in customer.shoppingCart.products">
 						  			<td class="text-center px-3 py-2" style="width:5%"><img v-if="product.image!=''" v-bind:src="product.image" alt="" width="40" height="40"></td>
 									<td class=" py-2" style="width:15%">{{product.name}}</td>
-									<td class=" py-2" style="width:50%">{{product.description}}</td>
+									<td class=" py-2" style="width:40%">{{product.description}}</td>
 									<td class=" py-2" style="width:10%">{{product.price}} rsd</td>
+									<td class=" py-2" style="width:10%">
+									<button class="btn btn-danger" @click="removeFromCart(product)">Remove</button>
+									</td>
 								</tr>
 							 </tbody>
 						  </table>

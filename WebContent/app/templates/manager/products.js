@@ -167,16 +167,25 @@ Vue.component("products", {
 					})
 				})
 			}
+		},
+		areProductsEmpty: function(){
+			let areEmpty = true;
+			if(this.manager.restaurant.products!=null){
+				if(this.manager.restaurant.products.length>0)
+					areEmpty = false;
+			}
+			return areEmpty;
 		}
 	
 	},
 	template: `
-	<div>
-	<h2 class="text-center py-5"> PRODUCTS </h2>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center mb-3 mt-3"><h1>Products</h1></div>
 	<button type="button" style="font-weight: 700;" class="btn btn-primary mb-3 offset-md-10 col-md-2" @click="resetForm" data-bs-toggle="modal" data-bs-target="#addProductModal">
 			  Add
 			</button>
-	<table class="table table-bordered bg-light mb-5" style="border-color:#607d8b" >
+	<table v-if="!areProductsEmpty()" class="table table-bordered bg-light mb-5" style="border-color:#607d8b" >
 				<thead>
 				<tr style="background: rgb(108 117 125); text-align: center; color: white;border-color: rgb(69 75 80); ">
 					<th>Name</th>
@@ -203,7 +212,8 @@ Vue.component("products", {
 					</tr>
 				</tbody>
 				</table>
-				<!-- Modal -->
+				<p class="py-3 text-center" v-if="areProductsEmpty()"> No products at the moment</p>
+		<!-- Modal -->
 		<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="Modal" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -299,6 +309,7 @@ Vue.component("products", {
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 		        <button type="button" class="btn btn-primary" v-on:click="editForm()">Save</button>
 		      </div>
+				</div>
 				</div>
 				</div>
 				</div>

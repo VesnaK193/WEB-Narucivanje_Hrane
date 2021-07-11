@@ -16,6 +16,7 @@ import dao.ManagerDAO;
 import dao.OrderDAO;
 import entities.Manager;
 import entities.Order;
+import entities.Restaurant;
 import entities.User;
 
 @Path("/order")
@@ -59,5 +60,31 @@ public class OrderService {
 	public Collection<Order> findAllByUserId(User u) {
 		OrderDAO orderDAO = (OrderDAO) ctx.getAttribute("orderDAO");
 		return orderDAO.findByUserId(u.getId());
+	}
+	
+	@POST
+	@Path("/findAllByRestaurantId")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Order> findAllByRestaurantId(Restaurant r) {
+		OrderDAO orderDAO = (OrderDAO) ctx.getAttribute("orderDAO");
+		return orderDAO.findByRestaurantId(r.getId());
+	}
+	
+	@GET
+	@Path("/getPendingOrders")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Order> getPendingOrders() {
+		OrderDAO orderDAO = (OrderDAO) ctx.getAttribute("orderDAO");
+		return orderDAO.getPendingOrders();
+	}
+	
+	@POST
+	@Path("/getNotDeliveredOrdersByUserId")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Order> getNotDeliveredOrdersByUserId(User user) {
+		OrderDAO orderDAO = (OrderDAO) ctx.getAttribute("orderDAO");
+		return orderDAO.getNotDeliveredOrdersByUserId(user.getId());
 	}
 }

@@ -15,7 +15,7 @@ Vue.component("manager", {
 		      <div class="position-sticky pt-3">
 		        <ul class="nav flex-column">
 		          <li class="nav-item">
-		            <a class="nav-link active" aria-current="page" href="/NarucivanjeHrane/#/manager">
+		            <a class="nav-link" aria-current="page" href="/NarucivanjeHrane/#/manager">
 		              Dashboard
 		            </a>
 		          </li>
@@ -36,6 +36,11 @@ Vue.component("manager", {
 		          <li class="nav-item">
 		            <a class="nav-link" aria-current="page" href="/NarucivanjeHrane/#/manager/profile">
 		              Profile
+		            </a>
+		          </li>
+		          <li class="nav-item">
+		            <a class="nav-link" aria-current="page" href="/NarucivanjeHrane/#/manager/orders">
+		              Orders
 		            </a>
 		          </li>
 		        </ul>

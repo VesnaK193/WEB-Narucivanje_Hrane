@@ -88,7 +88,7 @@ template: `
 		      <div class="modal-body">
 		      <!--   MODAL FORM    -->
 		        <div class="form-floating mb-2">
-			      <input type="text" class="form-control" name="username" v-model="modal_user.username" placeholder="Username">
+			      <input disabled type="text" class="form-control" name="username" v-model="modal_user.username" placeholder="Username">
 			      <label for="floatingInput">Username</label>
 			    </div>
 			    <div class="form-floating mb-2">

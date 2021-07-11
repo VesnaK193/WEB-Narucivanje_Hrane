@@ -28,8 +28,19 @@ mounted () {
 			console.log(this.restaurant);
 		})
 	},
+	methods: {
+		isRestaurantEmpty: function(){
+			let isEmpty = true;
+			if(this.restaurant!=null){
+				if(this.restaurant.id !="" && this.restaurant.id != null)
+					isEmpty = false;
+			}
+			return isEmpty;
+		}
+	},
 template: `
 <div class="container py-5">
+	<div v-if="!isRestaurantEmpty()" >
 	<div class="row featurette">
       <div class="col-md-7 order-md-2">
         <h2 class="featurette-heading">{{restaurant.name}} <br/><span class="text-muted">{{restaurant.type}}</span></h2>
@@ -53,14 +64,13 @@ template: `
 	</ul>
 	<div class="tab-content" id="restaurantTabContent">
 	<div class="tab-pane fade active show products-container" id="products" role="tabpanel" aria-labelledby="products-tab">
-	  <table>
+	  <table class="w-100" v-if="restaurant.products!=null">
 	  	<thead>
 			<tr style="border-bottom: 1px solid rgba(0,0,0,10%)">
 				<th></th>
 				<th class="px-5 py-1">Name</th>
 				<th class="px-5 py-1">Description</th>
 				<th class="px-5 py-1">Price</th>
-				<th class="px-5 py-1"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -69,15 +79,15 @@ template: `
 				<td class="px-5 py-2">{{product.name}}</td>
 				<td class="px-5 py-2">{{product.description}}</td>
 				<td class="px-5 py-2">{{product.price}}</td>
-				<td class="px-3 w-100 py-1" style="text-align:right">
-					<button type="button" class="btn btn-secondary">Add to cart</button>
-				</td>
 			</tr>
 		</tbody>
 	  </table>
+	  <p class="py-3 mx-3" v-if="restaurant.products==null"> No available products</p>
 	</div>
 	  <div class="tab-pane fade products-container" id="comments" role="tabpanel" aria-labelledby="comments-tab">Comments</div>
 	</div>
+	</div>
+	<h2 class="text-center" v-if="isRestaurantEmpty()">You dont have restaurant!</h2>
  </div>
  `
 })

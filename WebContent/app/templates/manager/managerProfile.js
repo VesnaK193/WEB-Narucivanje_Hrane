@@ -27,6 +27,7 @@ methods: {
 				this.modal_user.birthday = new Date(this.modal_user.birthday).toISOString().split('T')[0];
 				this.errorMessage = "Username already exists!";
 			} else {
+				console.log(this.modal_user);
 				axios
 				.post("rest/manager/update", this.modal_user)
 				.then(response => {

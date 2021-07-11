@@ -68,7 +68,6 @@ public class ManagerDAO {
 				managers.put(m.getId(), m);
 			}
 		} catch (Exception ex) {
-			
 		} finally {
 			if (reader != null) {
 				try {
@@ -92,7 +91,6 @@ public class ManagerDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {
@@ -122,7 +120,6 @@ public class ManagerDAO {
 		    writer = new BufferedWriter(new FileWriter(file));
 		    writer.write(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if ( writer != null ) {
 				try {

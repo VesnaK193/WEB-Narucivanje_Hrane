@@ -182,6 +182,14 @@ methods: {
 		this.modal_restaurant.location.zipCode = v;
 		console.log(this.modal_restaurant.location.zipCode);
 	},
+	areRestaurantsEmpty: function(){
+		let areEmpty = true;
+		if(this.restaurants!=null){
+			if(this.restaurants.length>0)
+				areEmpty = false;
+		}
+		return areEmpty;
+	}
 
 },
 template: ` 
@@ -192,7 +200,7 @@ template: `
 			<button type="button" style="font-weight: 700;" @click="resetForm" class="btn btn-primary mb-3 offset-md-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addRestaurantModal">
 			  Add
 			</button>
-			<table class="table table-bordered bg-light" style="border-color:#607d8b">
+			<table v-if="!areRestaurantsEmpty()" class="table table-bordered bg-light" style="border-color:#607d8b">
 				<thead>
 				<tr style="background: #0d6efd; text-align: center; color: white;border-color: #0e4494;">
 					<th>Name</th>
@@ -218,6 +226,7 @@ template: `
 				</tr>
 				</tbody>
 			</table>
+			<p class="py-3 text-center" v-if="areRestaurantsEmpty()"> No restaurants at the moment</p>
 		</div>
 		<!-- Modal -->
 		<div class="modal fade" id="addRestaurantModal" tabindex="-1" aria-labelledby="Modal" aria-hidden="true">
