@@ -13,6 +13,7 @@ public class Order {
 	private double price;
 	private Customer customer;
 	private OrderStatus orderStatus;
+	private boolean commented;
 	
 	public Order () {
 		
@@ -72,6 +73,14 @@ public class Order {
 
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+
+	public boolean isCommented() {
+		return commented;
+	}
+
+	public void setCommented(boolean commented) {
+		this.commented = commented;
 	}
 
 	

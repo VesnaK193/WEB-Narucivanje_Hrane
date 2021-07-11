@@ -1,8 +1,7 @@
 Vue.component("manager-orders", {
 	data: function () {
 	    return {
-	    	orders:[],
-			errorMessage:"",
+	    	orders:[]
 	    }
 },
 mounted() {
@@ -68,7 +67,7 @@ template: `
 					<p v-for="product in order.products">{{product.name}}</p>
 					</td>
 					<td>{{order.restaurant.name}}</td>
-					<td>{{order.dateAndTime}}</td>
+					<td>{{new Date(order.dateAndTime).toLocaleDateString("en-GB")}}</td>
 					<td>{{order.price}}</td>
 					<td>{{order.orderStatus}}</td>
 					<td  class="text-center">

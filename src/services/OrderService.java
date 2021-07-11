@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import dao.ManagerDAO;
 import dao.OrderDAO;
+import entities.Customer;
 import entities.Manager;
 import entities.Order;
 import entities.Restaurant;
@@ -86,5 +87,14 @@ public class OrderService {
 	public Collection<Order> getNotDeliveredOrdersByUserId(User user) {
 		OrderDAO orderDAO = (OrderDAO) ctx.getAttribute("orderDAO");
 		return orderDAO.getNotDeliveredOrdersByUserId(user.getId());
+	}
+	
+	@POST
+	@Path("/getAllCustomersThatOrderedInRestaurant")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Customer> getAllCustomersThatOrderedInRestaurant(Restaurant restaurant) {
+		OrderDAO orderDAO = (OrderDAO) ctx.getAttribute("orderDAO");
+		return orderDAO.getAllCustomersThatOrderedInRestaurant(restaurant.getId());
 	}
 }

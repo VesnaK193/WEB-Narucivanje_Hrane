@@ -27,7 +27,6 @@ template: `
 					<th>Birthday</th>
 					<th>Points</th>
 					<th>Type</th>
-					<th>Orders</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -36,10 +35,9 @@ template: `
 					<td>{{customer.username}}</td>
 					<td>{{customer.password}}</td>
 					<td>{{customer.gender}}</td>
-					<td>{{customer.birthday}}</td>
+					<td>{{new Date(customer.birthday).toLocaleDateString("en-GB")}}</td>
 					<td>{{customer.numberOfPoints}}</td>
-					<td>{{customer.typeOfCustomer}}</td>
-					<td>{{customer.allOrders}}</td>
+					<td>{{customer.typeOfCustomer.typeName}}</td>
 				</tr>
 				</tbody>
 			</table>

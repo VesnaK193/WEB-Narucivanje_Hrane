@@ -1,8 +1,22 @@
 Vue.component("manager-profile", {
 	data: function () {
 	    return {
-	    	user:null,
-	    	modal_user:null,
+	    	user:{
+	    		username:"",
+	    		firstname:"",
+	    		lastname:"",
+	    		password:"",
+	    		gender:"",
+	    		birthday:""
+	    	},
+	    	modal_user:{
+	    		username:"",
+	    		firstname:"",
+	    		lastname:"",
+	    		password:"",
+	    		gender:"",
+	    		birthday:""
+	    	},
 	    	errorMessage: ""
 	    }
 },

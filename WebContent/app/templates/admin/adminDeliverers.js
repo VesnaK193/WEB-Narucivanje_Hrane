@@ -89,7 +89,7 @@ template: `
 					<td>{{deliverer.username}}</td>
 					<td>{{deliverer.password}}</td>
 					<td>{{deliverer.gender}}</td>
-					<td>{{deliverer.birthday}}</td>
+					<td>{{new Date(deliverer.birthday).toLocaleDateString("en-GB")}}</td>
 				</tr>
 				</tbody>
 			</table>

@@ -206,8 +206,7 @@ Vue.component("products", {
 						<td>{{product.description}}</td>
 						<td class="text-center"><img v-if="product.image!=''" v-bind:src="product.image" alt="" width="40" height="40"></td>
 						<td class="text-center"> 
-						<button type="button" class="btn btn-secondary" @click="editProductOnClick(product)" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
-						<button type="button" class="btn btn-danger">Delete</button>
+							<button type="button" class="btn btn-secondary" @click="editProductOnClick(product)" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
 						</td>
 					</tr>
 				</tbody>

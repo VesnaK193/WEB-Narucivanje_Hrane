@@ -43,6 +43,16 @@ Vue.component("manager", {
 		              Orders
 		            </a>
 		          </li>
+		          <li class="nav-item">
+		            <a class="nav-link" aria-current="page" href="/NarucivanjeHrane/#/manager/customers">
+		              Customers
+		            </a>
+		          </li>
+		          <li class="nav-item">
+		            <a class="nav-link" aria-current="page" href="/NarucivanjeHrane/#/manager/comments">
+		              Comments
+		            </a>
+		          </li>
 		        </ul>
 		      </div>
 		    </nav>

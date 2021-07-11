@@ -87,7 +87,7 @@ template: `
 					<td>{{manager.username}}</td>
 					<td>{{manager.password}}</td>
 					<td>{{manager.gender}}</td>
-					<td>{{manager.birthday}}</td>
+					<td>{{new Date(manager.birthday).toLocaleDateString("en-GB")}}</td>
 					<td>{{manager.restaurant?manager.restaurant.name:""}}</td>
 				</tr>
 				</tbody>
