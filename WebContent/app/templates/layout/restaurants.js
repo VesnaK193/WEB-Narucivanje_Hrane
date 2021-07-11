@@ -46,6 +46,7 @@ template: `
           <div class="card shadow-sm">
             <img v-bind:src="restaurant.logo" class="bg-placeholder-img card-img-top" width="100%" height="225">
             <div class="card-body">
+          <strong class="d-inline-block mb-2 text-primary">{{restaurant.restaurantStatus}}</strong>
               <h2>{{restaurant.name}}</h2>
               <p style="font-size:1.2rem">{{restaurant.type}}</p>
               <i class="fa fa-30"><img src="assets/images/map-marker-alt.svg"></i>

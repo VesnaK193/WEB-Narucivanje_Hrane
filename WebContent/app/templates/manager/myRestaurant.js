@@ -1,6 +1,7 @@
 Vue.component("my-restaurant", {
 	data: function() {
 		return {
+	    	comments:null,
 			restaurant: {
 				id: "",
 				name: "",
@@ -25,7 +26,11 @@ mounted () {
 		.post("rest/manager/getById",u)
 		.then(response => {
 			this.restaurant = response.data.restaurant;
-			console.log(this.restaurant);
+			axios
+			.post("rest/comment/findAllApprovedByRestaurantId", this.restaurant)
+			.then(response2 => {
+				this.comments = response2.data;
+			})
 		})
 	},
 	methods: {
@@ -36,6 +41,14 @@ mounted () {
 					isEmpty = false;
 			}
 			return isEmpty;
+		},
+		areCommentsEmpty: function(){
+			let areEmpty = true;
+			if(this.comments!=null){
+				if(this.comments.length>0)
+					areEmpty = false;
+			}
+			return areEmpty;
 		}
 	},
 template: `
@@ -84,7 +97,16 @@ template: `
 	  </table>
 	  <p class="py-3 mx-3" v-if="restaurant.products==null"> No available products</p>
 	</div>
-	  <div class="tab-pane fade products-container" id="comments" role="tabpanel" aria-labelledby="comments-tab">Comments</div>
+	  <!-- COMMENTS -->
+	<div class="tab-pane fade products-container p-2" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+	  <div v-if="!areCommentsEmpty()" v-for=" comment in comments" class=" row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-2 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">{{comment.rating}}/5</strong>
+          <div class="mb-1 text-muted">{{comment.customer.firstname}} {{comment.customer.lastname}}</div>
+          <p class="card-text mb-auto">{{comment.content}}</p>
+        </div>
+      </div>
+	  <p v-if="areCommentsEmpty()" class="py-3 mx-3"> No comments</p>
 	</div>
 	</div>
 	<h2 class="text-center" v-if="isRestaurantEmpty()">You dont have restaurant!</h2>
