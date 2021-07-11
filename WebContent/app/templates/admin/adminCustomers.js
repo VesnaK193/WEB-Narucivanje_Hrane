@@ -1,7 +1,18 @@
 Vue.component("admin-customers", {
 	data: function () {
 	    return {
-	    	customers:null,
+	    	customers:{
+	    		username:"",
+	    		firstname:"",
+	    		lastname:"",
+	    		password:"",
+	    		gender:"",
+	    		birthday:"",
+	    		numberOfPoints:0,
+	    		typeOfCustomer:{
+	    			typeName:""
+	    		}
+	    	},
 			errorMessage:"",
 	    }
 },
@@ -37,7 +48,7 @@ template: `
 					<td>{{customer.gender}}</td>
 					<td>{{new Date(customer.birthday).toLocaleDateString("en-GB")}}</td>
 					<td>{{customer.numberOfPoints}}</td>
-					<td>{{customer.typeOfCustomer.typeName}}</td>
+					<td>{{customer.typeOfCustomer?customer.typeOfCustomer.typeName:""}}</td>
 				</tr>
 				</tbody>
 			</table>

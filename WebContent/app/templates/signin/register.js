@@ -73,8 +73,24 @@ Vue.component("register", {
 						this.errorMessage = "Username already exists!";
 					} else {
 						this.errorMessage = "";
+						let customer = {
+							id: response.data.id,
+						    username: response.data.username,
+							password: response.data.password,
+							firstname: response.data.firstname,
+							lastname: response.data.lastname,
+							gender: response.data.gender,
+							birthday:  response.data.birthday,
+							role:"CUSTOMER",
+							numberOfPoints : 0.0,
+							typeOfCustomer : {
+							    typeName : "BRONZE",
+							    discount : 3.0,
+							    pointsToNextType : 1000.0
+							}
+						}
 						axios
-						.post("rest/customer/update",response.data)
+						.post("rest/customer/update",customer)
 						.then(responseCustomer => {
 							localStorage.user =JSON.stringify(response.data);
 							window.location.href = '/NarucivanjeHrane/#/customer/home';

@@ -99,11 +99,11 @@ template: `
 	<div class="container">
 		<div class="row">
 			<div v-if="!areOrdersEmpty()" class="col-md-12 text-center mb-3 mt-3"><h1>Orders</h1></div>
-				<button @click="refreshOrders()" type="button" style="font-weight: 700; display:inline" class="btn btn-primary mb-3 col-md-2" data-bs-toggle="modal" data-bs-target="#addDelivererModal">
+				<button @click="refreshOrders()" type="button" style="font-weight: 700; display:inline" class="btn btn-primary mb-3 col-md-2">
 				  Refresh
 				</button>
 				<div style="text-align:right"  class="col-md-10">
-					<button @click="undevileredOrders()"  type="button" style="font-weight: 700; display:inline; text-align:right" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#addDelivererModal">
+					<button @click="undevileredOrders()"  type="button" style="font-weight: 700; display:inline; text-align:right" class="btn btn-outline-secondary mb-3">
 					  Show undelivered orders
 					</button>
 				</div>

@@ -1,4 +1,4 @@
-[{
+[ {
   "id" : 0,
   "username" : "admin",
   "password" : "123",
@@ -34,4 +34,31 @@
   "gender" : "Male",
   "birthday" : 1624406400000,
   "role" : "DELIVERER"
-} ]
+}, {
+  "id" : 4,
+  "username" : "managerBalans",
+  "password" : "123",
+  "firstname" : "Balans",
+  "lastname" : "Manager",
+  "gender" : "Female",
+  "birthday" : 1625443200000,
+  "role" : "MANAGER"
+}, {
+  "id" : 5,
+  "username" : "managerCaribic",
+  "password" : "123",
+  "firstname" : "Caribic",
+  "lastname" : "Manager",
+  "gender" : "Male",
+  "birthday" : 1625443200000,
+  "role" : "MANAGER"
+}, {
+  "id" : 6,
+  "username" : "customer1",
+  "password" : "123",
+  "firstname" : "Marija",
+  "lastname" : "Maric",
+  "gender" : "Female",
+  "birthday" : 1625616000000,
+  "role" : "CUSTOMER"
+}]

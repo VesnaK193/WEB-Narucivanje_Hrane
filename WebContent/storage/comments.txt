@@ -1,0 +1,118 @@
+[ {
+  "id" : 0,
+  "customer" : {
+    "id" : 1,
+    "username" : "customer",
+    "password" : "123",
+    "firstname" : "Petar",
+    "lastname" : "Petrovic",
+    "gender" : "Male",
+    "birthday" : 1624406400000,
+    "role" : "CUSTOMER",
+    "allOrders" : null,
+    "shoppingCart" : null,
+    "numberOfPoints" : 55.4743,
+    "typeOfCustomer" : {
+      "typeName" : "BRONZE",
+      "discount" : 3.0,
+      "pointsToNextType" : 944.5257
+    }
+  },
+  "restaurant" : {
+    "id" : 1,
+    "name" : "Balans Palacinke",
+    "type" : "Sweet house",
+    "products" : null,
+    "restaurantStatus" : "OPEN",
+    "location" : {
+      "longitude" : 671.0,
+      "latitude" : 623.0,
+      "streetName" : "Jevrejska 25",
+      "city" : "Novi Sad",
+      "zipCode" : 21000
+    },
+    "logo" : null,
+    "averageRating" : 0.0
+  },
+  "content" : "Great service!",
+  "rating" : 5.0,
+  "approved" : "YES"
+}, {
+  "id" : 1,
+  "customer" : {
+    "id" : 6,
+    "username" : "customer1",
+    "password" : "123",
+    "firstname" : "Marija",
+    "lastname" : "Maric",
+    "gender" : "Female",
+    "birthday" : 1625616000000,
+    "role" : "CUSTOMER",
+    "allOrders" : null,
+    "shoppingCart" : null,
+    "numberOfPoints" : 45.1535,
+    "typeOfCustomer" : {
+      "typeName" : "BRONZE",
+      "discount" : 3.0,
+      "pointsToNextType" : 954.8465
+    }
+  },
+  "restaurant" : {
+    "id" : 0,
+    "name" : "Jefta",
+    "type" : "Fast food",
+    "products" : null,
+    "restaurantStatus" : "OPEN",
+    "location" : {
+      "longitude" : 427.0,
+      "latitude" : 165.0,
+      "streetName" : "Bulevar Oslobodjenja 126",
+      "city" : "Novi Sad",
+      "zipCode" : 21000
+    },
+    "logo" : null,
+    "averageRating" : 0.0
+  },
+  "content" : "Average",
+  "rating" : 3.0,
+  "approved" : "YES"
+}, {
+  "id" : 2,
+  "customer" : {
+    "id" : 6,
+    "username" : "customer1",
+    "password" : "123",
+    "firstname" : "Marija",
+    "lastname" : "Maric",
+    "gender" : "Female",
+    "birthday" : 1625616000000,
+    "role" : "CUSTOMER",
+    "allOrders" : null,
+    "shoppingCart" : null,
+    "numberOfPoints" : 60.6347,
+    "typeOfCustomer" : {
+      "typeName" : "BRONZE",
+      "discount" : 3.0,
+      "pointsToNextType" : 939.3653
+    }
+  },
+  "restaurant" : {
+    "id" : 1,
+    "name" : "Balans Palacinke",
+    "type" : "Sweet house",
+    "products" : null,
+    "restaurantStatus" : "OPEN",
+    "location" : {
+      "longitude" : 671.0,
+      "latitude" : 623.0,
+      "streetName" : "Jevrejska 25",
+      "city" : "Novi Sad",
+      "zipCode" : 21000
+    },
+    "logo" : null,
+    "averageRating" : 0.0
+  },
+  "content" : "Ok",
+  "rating" : 4.0,
+  "approved" : "YES"
+} ]

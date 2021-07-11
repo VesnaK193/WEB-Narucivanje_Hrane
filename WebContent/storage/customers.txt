@@ -1,4 +1,4 @@
-[{
+[ {
   "id" : 1,
   "username" : "customer",
   "password" : "123",
@@ -6,5 +6,30 @@
   "lastname" : "Petrovic",
   "gender" : "Male",
   "birthday" : 1624406400000,
-  "role" : "CUSTOMER"
-}]
+  "role" : "CUSTOMER",
+  "allOrders" : null,
+  "shoppingCart" : null,
+  "numberOfPoints" : 55.4743,
+  "typeOfCustomer" : {
+    "typeName" : "BRONZE",
+    "discount" : 3.0,
+    "pointsToNextType" : 944.5257
+  }
+}, {
+  "id" : 6,
+  "username" : "customer1",
+  "password" : "123",
+  "firstname" : "Marija",
+  "lastname" : "Maric",
+  "gender" : "Female",
+  "birthday" : 1625616000000,
+  "role" : "CUSTOMER",
+  "allOrders" : null,
+  "shoppingCart" : null,
+  "numberOfPoints" : 76.1159,
+  "typeOfCustomer" : {
+    "typeName" : "BRONZE",
+    "discount" : 3.0,
+    "pointsToNextType" : 923.8841
+  }
+} ]

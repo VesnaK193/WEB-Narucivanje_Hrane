@@ -163,6 +163,10 @@ methods: {
 	    	},
     		logo:"", 
     	}
+		this.newManager = {username:"",firstname:"",lastname:"",gender:"",password:"",birthday:null};
+		const img = document.querySelector("#addRestaurantModal #logo_img");
+		img.src = "";
+		img.style.display = "none";
 		this.errorMessage ="";
 	},
 	longitudeValidation: function(event) {
@@ -197,7 +201,7 @@ template: `
 		<div class="row">
 			<div class="col-md-12 text-center my-3"><h1>Restaurants</h1></div>
 			<!-- Button trigger add modal -->
-			<button type="button" style="font-weight: 700;" @click="resetForm" class="btn btn-primary mb-3 offset-md-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addRestaurantModal">
+			<button type="button" style="font-weight: 700;" @click="resetForm()" class="btn btn-primary mb-3 offset-md-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addRestaurantModal">
 			  Add
 			</button>
 			<table v-if="!areRestaurantsEmpty()" class="table table-bordered bg-light" style="border-color:#607d8b">
@@ -285,7 +289,7 @@ template: `
 			    <img style="display:none" id="logo_img" src="" alt="empty" width="107" height="98">
 				<div class="mb-2">
 				  <label for="modal_logo" class="form-label">Logo</label>
-				  <input @change="onImageChange('addRestaurantModal')" class="form-control form-control-lg" id="modal_logo" type="file">
+				  <input @change="onImageChange('addRestaurantModal')" class="form-control form-control-lg" v-model="modal_restaurant.logo" id="modal_logo" type="file">
 				</div>
 			    <!-- MANAGER FIELD -->
 			    		<div class="form-floating mb-2">

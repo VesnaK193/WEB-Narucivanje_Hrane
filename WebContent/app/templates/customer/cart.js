@@ -113,6 +113,7 @@ methods: {
 		.post('rest/customer/update', this.customer);
 	},
 	calculateTotal: function(){
+		console.log(this.customer);
 		this.priceWithDiscount = this.customer.shoppingCart.price  * ((100-(this.customer.typeOfCustomer.discount))/100);
 	}
 },
